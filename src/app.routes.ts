@@ -4,11 +4,14 @@ import { Dashboard } from './app/pages/dashboard/dashboard';
 import { Documentation } from './app/pages/documentation/documentation';
 import { Landing } from './app/pages/landing/landing';
 import { Notfound } from './app/pages/notfound/notfound';
+import { AuthGuard } from './app/guards/auth.guard';
 
 export const appRoutes: Routes = [
     {
         path: '',
         component: AppLayout,
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] }, 
         children: [
             { path: '', component: Dashboard },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
@@ -16,8 +19,16 @@ export const appRoutes: Routes = [
             { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
         ]
     },
+    {
+        path: 'admin',
+        loadChildren: () => import('./app/pages/admin/admin.routes').then(m => m.default)
+    },
     { path: 'landing', component: Landing },
     { path: 'notfound', component: Notfound },
-    { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
+    {
+        path: 'auth',
+        loadChildren: () => import('./app/pages/auth/auth.routes').then(m => m.default)
+    },
     { path: '**', redirectTo: '/notfound' }
 ];
+
