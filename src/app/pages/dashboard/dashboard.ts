@@ -10,7 +10,6 @@ import { RevenueStreamWidget } from './components/revenuestreamwidget';
     imports: [StatsWidget, RevenueStreamWidget, NotificationsWidget],
     template: `
         <div class="grid grid-cols-12 gap-8">
-    <!-- StatsWidget que representa "Zonas" -->
     <div class="col-span-12 xl:col-span-12">
         <app-stats-widget />
     </div>
