@@ -5,13 +5,10 @@ import { RevenueStreamWidget } from '../dashboard/components/revenuestreamwidget
 import { NotificationsWidget } from '../dashboard/components/notificationswidget';
 import { RouterModule } from '@angular/router';
 
-// Componentes de layout (importar solo los necesarios para mostrar, o personalizar)
 import { AppTopbar } from '../../layout/component/app.topbar';
 import { AppSidebar } from '../../layout/component/app.sidebar';
 import { AppFooter } from '../../layout/component/app.footer';
 import { AppMenu } from '../../layout/component/app.menu';
-
-// Puedes agregar más componentes de uikit si deseas visualizarlos directamente
 
 @Component({
   standalone: true,

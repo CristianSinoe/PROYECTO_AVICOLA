@@ -37,10 +37,10 @@ import { CommonModule } from '@angular/common';
 
                         <div>
                             <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">CORREO ELECTRONICO</label>
-                            <input pInputText id="email1" type="text" placeholder="Email address" class="w-full md:w-[30rem] mb-8" [(ngModel)]="email" />
+                            <input pInputText id="email1" type="text" placeholder="DIRECCION DE CORREO" class="w-full md:w-[30rem] mb-8" [(ngModel)]="email" />
 
                             <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">CONTRASEÑA</label>
-                            <p-password id="password1" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
+                            <p-password id="password1" [(ngModel)]="password" placeholder="CONTRASEÑA" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
 
                             <div class="flex items-center justify-between mt-2 mb-8 gap-8">
                                 <div class="flex items-center">
@@ -49,7 +49,7 @@ import { CommonModule } from '@angular/common';
                                 </div>
                                 <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">¿OLVIDASTE TU CONTRASEÑA?</span>
                             </div>
-                            <p-button label="Iniciar Sesión" styleClass="w-full" (onClick)="onLogin()"></p-button>
+                            <p-button label="INICIAR SESION" styleClass="w-full" (onClick)="onLogin()"></p-button>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ export class Login {
                         this.router.navigate(['/admin']);
                         break;
                     case 'medico':
-                        this.router.navigate(['/dashboard']); // ajusta según vista real
+                        this.router.navigate(['/dashboard']);
                         break;
                     case 'granjero':
                         this.router.navigate(['/dashboard']);
