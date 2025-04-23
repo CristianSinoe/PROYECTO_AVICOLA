@@ -1,43 +1,87 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# Compiled output
+# =====================================
+# COMPILADOS Y OUTPUTS
+# =====================================
+
+# Angular build output
 /dist
-/tmp
 /out-tsc
+/.angular/cache
+/tmp
 /bazel-out
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# Coverage reports
+/coverage
+/testem.log
+/libpeerconnection.log
 
-# IDEs and editors
+# =====================================
+# DEPENDENCIAS Y LOGS
+# =====================================
+
+# Node modules
+/node_modules
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files (opcional ignorar si prefieren evitar conflictos)
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
+
+# =====================================
+# ARCHIVOS DE SISTEMA
+# =====================================
+
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =====================================
+# EDITORES E IDEs
+# =====================================
+
+# JetBrains / WebStorm / IntelliJ
 .idea/
 .project
 .classpath
-.c9/
-*.launch
 .settings/
-*.sublime-workspace
+*.launch
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+.vscode/
+# Si deseas conservar algunas configuraciones del workspace, descomenta lo siguiente:
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Cloud9
+.c9/
+
+# Otros
+.history/
+.connect.lock
+
+# =====================================
+# TYPINGS Y BOWER
+# =====================================
+
 /typings
-.vscode
+/bower_components
 
-# System files
-.DS_Store
-Thumbs.db
+# =====================================
+# DEPLOY (opcional)
+# =====================================
+
+# Ignora carpetas de output de Vercel (si lo usas)
+/.vercel/output
