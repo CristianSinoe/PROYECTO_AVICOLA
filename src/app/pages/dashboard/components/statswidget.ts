@@ -8,13 +8,13 @@ import { DataService } from '../../../services/data.service';
   imports: [CommonModule],
   template: `
   <div class="grid grid-cols-12 gap-4">
-    <!-- ZONAS -->
+    
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="flex justify-between mb-4">
           <div>
             <span class="block text-muted-color font-medium mb-4">ZONAS</span>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{ zonas }}</div>
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ zonas }}</div>
           </div>
           <div class="flex items-center justify-center bg-blue-100 dark:bg-blue-400/10 rounded-border" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-map-marker text-blue-500 text-3xl"></i>
@@ -25,13 +25,12 @@ import { DataService } from '../../../services/data.service';
       </div>
     </div>
 
-    <!-- EMBALAJES -->
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="flex justify-between mb-4">
           <div>
             <span class="block text-muted-color font-medium mb-4">EMBALAJES</span>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">\${{ embalajes }}</div>
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">\${{ embalajes }}</div>
           </div>
           <div class="flex items-center justify-center bg-orange-100 dark:bg-orange-400/10 rounded-border" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-dollar text-orange-500 text-3xl"></i>
@@ -42,13 +41,12 @@ import { DataService } from '../../../services/data.service';
       </div>
     </div>
 
-    <!-- EMPLEADOS -->
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="flex justify-between mb-4">
           <div>
             <span class="block text-muted-color font-medium mb-4">NÚMERO DE EMPLEADOS</span>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{ empleados }}</div>
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ empleados }}</div>
           </div>
           <div class="flex items-center justify-center bg-cyan-100 dark:bg-cyan-400/10 rounded-border" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-users text-cyan-500 text-3xl"></i>
@@ -59,13 +57,12 @@ import { DataService } from '../../../services/data.service';
       </div>
     </div>
 
-    <!-- DIAGNÓSTICOS -->
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="flex justify-between mb-4">
           <div>
-            <span class="block text-muted-color font-medium mb-4">DIAGNÓSTICOS</span>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{ diagnosticosPorRevisar }} POR REVISAR</div>
+            <span class="block text-muted-color font-medium mb-4">DIAGNÓSTICOS POR REVISAR</span>
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ diagnosticosPorRevisar }}</div>
           </div>
           <div class="flex items-center justify-center bg-purple-100 dark:bg-purple-400/10 rounded-border" style="width: 2.5rem; height: 2.5rem">
             <i class="pi pi-comment text-purple-500 text-3xl"></i>
