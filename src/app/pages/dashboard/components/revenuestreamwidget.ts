@@ -12,13 +12,20 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="card !mb-8">
       <div class="font-semibold text-xl mb-4">PROMEDIO DE ALIMENTO: </div>
-      <p-chart type="bar" [data]="chartData" [options]="chartOptions" class="h-80" />
+      <p-chart type="bar" [data]="alimentoChartData" [options]="chartOptions" class="h-80" />
+    </div>
+
+    <div class="card !mb-8">
+      <div class="font-semibold text-xl mb-4">PROMEDIO DE MORTALIDAD: </div>
+      <p-chart type="bar" [data]="mortalidadChartData" [options]="mortalidadChartOptions" class="h-80" />
     </div>
   `
 })
 export class RevenueStreamWidget implements OnInit, OnDestroy {
-  chartData: any;
+  alimentoChartData: any;
+  mortalidadChartData: any;
   chartOptions: any;
+  mortalidadChartOptions: any;
   subscription!: Subscription;
 
   constructor(
@@ -30,7 +37,7 @@ export class RevenueStreamWidget implements OnInit, OnDestroy {
     this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
       this.loadChartData();
     });
-    this.loadChartData(); // Para cargar al iniciar
+    this.loadChartData();
   }
 
   loadChartData() {
@@ -40,17 +47,38 @@ export class RevenueStreamWidget implements OnInit, OnDestroy {
     const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
 
     this.dataService.getData().subscribe(data => {
-      const chartData = data.promedioAlimento;
+      const alimentoData = data.promedioAlimento;
+      const mortalidadData = data.promedioMortalidad;
 
-      this.chartData = {
-        labels: chartData.labels,
-        datasets: chartData.datasets.map((ds: any, index: number) => ({
+      this.alimentoChartData = {
+        labels: alimentoData.labels,
+        datasets: alimentoData.datasets.map((ds: any, index: number) => ({
           type: 'bar',
           label: ds.label,
           data: ds.data,
           backgroundColor: documentStyle.getPropertyValue(`--p-primary-${400 - index * 100}`),
           barThickness: 32,
-          ...(index === chartData.datasets.length - 1 && {
+          ...(index === alimentoData.datasets.length - 1 && {
+            borderRadius: {
+              topLeft: 8,
+              topRight: 8,
+              bottomLeft: 0,
+              bottomRight: 0
+            },
+            borderSkipped: false
+          })
+        }))
+      };
+
+      this.mortalidadChartData = {
+        labels: mortalidadData.labels,
+        datasets: mortalidadData.datasets.map((ds: any, index: number) => ({
+          type: 'bar',
+          label: ds.label,
+          data: ds.data,
+          backgroundColor: this.getRedTone(index),
+          barThickness: 32,
+          ...(index === mortalidadData.datasets.length - 1 && {
             borderRadius: {
               topLeft: 8,
               topRight: 8,
@@ -96,7 +124,23 @@ export class RevenueStreamWidget implements OnInit, OnDestroy {
           }
         }
       };
+
+      this.mortalidadChartOptions = {
+        ...this.chartOptions,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'red'
+            }
+          }
+        }
+      };
     });
+  }
+
+  getRedTone(index: number) {
+    const redTones = ['#ff7f7f', '#ff4c4c', '#ff0000'];
+    return redTones[index % redTones.length];
   }
 
   ngOnDestroy() {
