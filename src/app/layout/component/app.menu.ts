@@ -32,21 +32,21 @@ export class AppMenu {
                 {
                     label: 'COMPONENTES',
                     items: [
-                        // { label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
-                        // { label: 'ENTRADA', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
-                        // { label: 'BOTONES', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
+                        { label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
+                        { label: 'ENTRADA', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
+                         { label: 'BOTONES', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
                         { label: 'LISTA DE TRABAJADORES', icon: 'pi pi-fw pi-user', routerLink: ['/uikit/table'] },
-                        // { label: 'LISTAS', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                        // { label: 'ARBOL', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
-                        // { label: 'PANEL', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                        // { label: 'INCRUSTAR', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                        // { label: 'MEDIA', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                        // { label: 'MENU', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
-                        // { label: 'MENSAJE', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                        // { label: 'ARCHIVOS', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                        // { label: 'ESTADISTICAS', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                        // { label: 'CALENDARIO', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
-                        // { label: 'VARIADO', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
+                        { label: 'LISTAS', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
+                        { label: 'ARBOL', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
+                        { label: 'PANEL', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
+                        { label: 'INCRUSTAR', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
+                        { label: 'MEDIA', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
+                        { label: 'MENU', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
+                        { label: 'MENSAJE', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
+                         { label: 'ARCHIVOS', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
+                        { label: 'ESTADISTICAS', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
+                        { label: 'CALENDARIO', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
+                        { label: 'VARIADO', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
                     ]
                 },
                 {
@@ -65,9 +65,9 @@ export class AppMenu {
                             routerLink: ['/uikit/table']
                         },
                         {
-                            label: 'GRANJAS',
+                            label: 'ZONAS',
                             icon: 'pi pi-fw pi-user',
-                            items: this.crearMenuZonas(data)  // Aquí creamos el menú dinámico para las zonas y kazetas
+                            items: this.crearMenuZonas(data)
                         }
                     ]
                 },

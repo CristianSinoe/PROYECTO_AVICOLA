@@ -53,13 +53,13 @@
       "text": "PEPE RUIZ HIZO UN DIAGNOSTICO A LA KAZETA 3",
       "color": "blue",
       "icon": "pi pi-dollar",
-      "fechaHora": "2025-04-28 03:30"
+      "fechaHora": "2025-04-29 03:30"
     },
     {
       "text": "SE GENERARON REPORTES CON ESTADISTICAS DE LOS MESES ENERO Y FEBRERO SOBRE MORTALIDAD",
       "color": "orange",
       "icon": "pi pi-comment",
-      "fechaHora": "2025-04-28 04:15"
+      "fechaHora": "2025-04-29 04:15"
     }
   ],
   "ayer": [
@@ -67,13 +67,13 @@
       "text": "PEPITO",
       "color": "blue",
       "icon": "pi pi-dollar",
-      "fechaHora": "2025-04-27 15:50"
+      "fechaHora": "2025-04-28 15:50"
     },
     {
       "text": "FERNANDO",
       "color": "pink",
       "icon": "pi pi-question",
-      "fechaHora": "2025-04-27 16:10"
+      "fechaHora": "2025-04-28 16:10"
     }
   ],
   "semanaPasada": [
