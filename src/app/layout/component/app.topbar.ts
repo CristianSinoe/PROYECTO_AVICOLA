@@ -5,17 +5,21 @@ import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
-    template: ` <div class="layout-topbar">
-        <div class="layout-topbar-logo-container">
-            <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
-                <i class="pi pi-bars"></i>
-            </button>
-            <a class="layout-topbar-logo" routerLink="/">
+    imports: [CommonModule, StyleClassModule],
+    template: `
+        <div class="layout-topbar">
+            <div class="layout-topbar-logo-container">
+                <!-- Logo y botón para abrir el menú -->
+                <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
+                    <i class="pi pi-bars"></i>
+                </button>
+                <a class="layout-topbar-logo" routerLink="/">
                 <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         fill-rule="evenodd"
@@ -33,60 +37,61 @@ import { LayoutService } from '../service/layout.service';
                         />
                     </g>
                 </svg>
-                <span>PROYECTO AVICOLA</span>
-            </a>
-        </div>
+                    <span>PROYECTO AVICOLA</span>
+                </a>
+            </div>
 
-        <div class="layout-topbar-actions">
-            <div class="layout-config-menu">
-                <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
-                    <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
+            <div class="layout-topbar-actions">
+                <!-- Configuración de la barra superior -->
+                <div class="layout-config-menu">
+                    <button type="button" class="layout-topbar-action" (click)="toggleDarkMode()">
+                        <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
+                    </button>
+                </div>
+
+                <!-- Menú de acciones de la barra superior -->
+                <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" (click)="onLogout()">
+                    <i class="pi pi-calendar"></i> <!-- Icono para logout -->
+                    <span>Cerrar sesión</span>
                 </button>
-                <div class="relative">
-                    <button
-                        class="layout-topbar-action layout-topbar-action-highlight"
-                        pStyleClass="@next"
-                        enterFromClass="hidden"
-                        enterActiveClass="animate-scalein"
-                        leaveToClass="hidden"
-                        leaveActiveClass="animate-fadeout"
-                        [hideOnOutsideClick]="true"
-                    >
-                        <i class="pi pi-palette"></i>
-                    </button>
-                    <app-configurator />
-                </div>
-            </div>
 
-            <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
-                <i class="pi pi-ellipsis-v"></i>
-            </button>
-
-            <div class="layout-topbar-menu hidden lg:block">
-                <div class="layout-topbar-menu-content">
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-calendar"></i>
-                        <span>CALENDARIO</span>
-                    </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-inbox"></i>
-                        <span>MENSAJES</span>
-                    </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-user"></i>
-                        <span>PERFIL</span>
-                    </button>
+                <!-- Menú de perfil u otras opciones -->
+                <div class="layout-topbar-menu hidden lg:block">
+                    <div class="layout-topbar-menu-content">
+                        <button type="button" class="layout-topbar-action">
+                            <i class="pi pi-calendar"></i>
+                            <span>CALENDARIO</span>
+                        </button>
+                        <button class="layout-topbar-action" pStyleClass="@next" (click)="onLogout()">
+                    <i class="pi pi-user"></i> <!-- Icono para logout -->
+                    <span>Cerrar sesión</span>
+                </button>
+                        <button type="button" class="layout-topbar-action">
+                            <i class="pi pi-inbox"></i>
+                            <span>MENSAJES</span>
+                        </button>
+                        <button type="button" class="layout-topbar-action">
+                            <i class="pi pi-user"></i>
+                            <span>PERFIL</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>`
+    `
 })
 export class AppTopbar {
     items!: MenuItem[];
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(public layoutService: LayoutService, private authService: AuthService, private router: Router) {}
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    }
+
+    // Método de logout
+    onLogout() {
+        this.authService.logout(); // Llamamos al método de logout del servicio
+        this.router.navigate(['/auth/login']); // Redirigimos al login
     }
 }
