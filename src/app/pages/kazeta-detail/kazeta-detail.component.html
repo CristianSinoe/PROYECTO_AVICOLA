@@ -1,0 +1,47 @@
+  <div class="grid grid-cols-12 gap-4">
+    <!-- Promedio de Alimento -->
+    <div class="col-span-12 xl:col-span-6">
+      <div class="card mb-0">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <span class="block text-muted-color font-medium mb-4">PROMEDIO DE ALIMENTO</span>
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ valorAlimento }}</div>
+          </div>
+          <div class="flex items-center justify-center bg-cyan-100 dark:bg-cyan-400/10 rounded-border ml-4" style="width: 2.5rem; height: 2.5rem">
+            <i class="pi pi-chart-bar text-cyan-500 text-3xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promedio de Mortalidad -->
+    <div class="col-span-12 xl:col-span-6">
+      <div class="card mb-0">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <span class="block text-muted-color font-medium mb-4">PROMEDIO DE MORTALIDAD</span>
+            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ valorMortalidad }}</div>
+          </div>
+          <div class="flex items-center justify-center bg-cyan-100 dark:bg-cyan-400/10 rounded-border ml-4" style="width: 2.5rem; height: 2.5rem">
+            <i class="pi pi-chart-bar text-cyan-500 text-3xl"></i>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <br>
+
+  <!-- Gráficos -->
+    <div class="col-span-12 xl:col-span-12">
+      <div class="card !mb-8">
+        <div class="font-semibold text-xl mb-4">PROMEDIO DE ALIMENTO:</div>
+        <p-chart type="bar" [data]="alimentoChartData" [options]="chartOptions" class="h-80"></p-chart>
+      </div>
+    
+    <div class="col-span-12 xl:col-span-12">
+      <div class="card !mb-8">
+        <div class="font-semibold text-xl mb-4">PROMEDIO DE MORTALIDAD:</div>
+        <p-chart type="bar" [data]="mortalidadChartData" [options]="mortalidadChartOptions" class="h-80"></p-chart>
+      </div>
+      </div>
+      </div>

@@ -14,79 +14,78 @@ import { CommonModule } from '@angular/common';
     selector: 'app-login',
     standalone: true,
     imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        ButtonModule,
-        CheckboxModule,
-        InputTextModule,
-        PasswordModule,
-        RippleModule,
-        AppFloatingConfigurator
+      CommonModule,
+      FormsModule,
+      ButtonModule,
+      CheckboxModule,
+      InputTextModule,
+      PasswordModule,
+      RippleModule,
+      AppFloatingConfigurator
     ],
     template: `
-        <app-floating-configurator />
-        <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-            <div class="flex flex-col items-center justify-center">
-                <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
-                    <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
-                        <div class="text-center mb-8">
-                            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">BIENVENIDO A NUESTRA EMPRESA AVICOLA!</div>
-                            <span class="text-muted-color font-medium">INICIA SESION PARA CONTINUAR</span>
-                        </div>
-
-                        <div>
-                            <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">CORREO ELECTRONICO</label>
-                            <input pInputText id="email1" type="text" placeholder="DIRECCION DE CORREO" class="w-full md:w-[30rem] mb-8" [(ngModel)]="email" />
-
-                            <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">CONTRASEÑA</label>
-                            <p-password id="password1" [(ngModel)]="password" placeholder="CONTRASEÑA" [toggleMask]="true" styleClass="mb-4" [fluid]="true" [feedback]="false"></p-password>
-
-                            <div class="flex items-center justify-between mt-2 mb-8 gap-8">
-                                <div class="flex items-center">
-                                    <p-checkbox [(ngModel)]="checked" id="rememberme1" binary class="mr-2"></p-checkbox>
-                                    <label for="rememberme1">RECORDARME</label>
-                                </div>
-                                <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">¿OLVIDASTE TU CONTRASEÑA?</span>
-                            </div>
-                            <p-button label="INICIAR SESION" styleClass="w-full" (onClick)="onLogin()"></p-button>
-                        </div>
-                    </div>
+      <app-floating-configurator />
+      <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen overflow-hidden px-4">
+        <div class="flex flex-col items-center justify-center w-full max-w-md">
+          <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+            <div class="w-full bg-surface-0 dark:bg-surface-900 py-12 px-8 sm:px-12" style="border-radius: 53px">
+              <div class="text-center mb-6">
+                <div class="text-surface-900 dark:text-surface-0 text-2xl sm:text-3xl font-medium mb-4">BIENVENIDO A NUESTRA EMPRESA AVICOLA!</div>
+                <span class="text-muted-color font-medium text-sm sm:text-base">INICIA SESION PARA CONTINUAR</span>
+              </div>
+  
+              <div>
+                <label for="email1" class="block text-surface-900 dark:text-surface-0 text-sm sm:text-base font-medium mb-2">CORREO ELECTRONICO</label>
+                <input pInputText id="email1" type="text" placeholder="DIRECCION DE CORREO" class="w-full mb-4 p-inputtext-sm sm:p-inputtext-md" [(ngModel)]="email" />
+  
+                <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-sm sm:text-base mb-2">CONTRASEÑA</label>
+                <p-password id="password1" [(ngModel)]="password" placeholder="CONTRASEÑA" [toggleMask]="true" styleClass="mb-4 w-full" [fluid]="true" [feedback]="false"></p-password>
+  
+                <div class="flex items-center justify-between mt-2 mb-4 gap-4">
+                  <div class="flex items-center">
+                    <p-checkbox [(ngModel)]="checked" id="rememberme1" binary class="mr-2 text-sm sm:text-base"></p-checkbox>
+                    <label for="rememberme1" class="text-sm sm:text-base">RECORDARME</label>
+                  </div>
+                  <span class="font-medium text-sm sm:text-base cursor-pointer text-primary">¿OLVIDASTE TU CONTRASEÑA?</span>
                 </div>
+                <p-button label="INICIAR SESION" styleClass="w-full" (onClick)="onLogin()"></p-button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     `
 })
 export class Login {
-    email: string = '';
-    password: string = '';
-    checked: boolean = false;
+  email: string = '';
+  password: string = '';
+  checked: boolean = false;
 
-    constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
-    onLogin() {
-        this.auth.login(this.email, this.password).subscribe(success => {
-            if (success) {
-                const role = this.auth.getUserRole();
-                switch (role) {
-                    case 'admin':
-                        this.router.navigate(['/admin']);
-                        break;
-                    case 'medico':
-                        this.router.navigate(['/dashboard']);
-                        break;
-                    case 'granjero':
-                        this.router.navigate(['/dashboard']);
-                        break;
-                    case 'encargado':
-                        this.router.navigate(['/dashboard']);
-                        break;
-                    default:
-                        this.router.navigate(['/']);
-                }
-            } else {
-                alert('Credenciales inválidas');
-            }
-        });
-    }
+  onLogin() {
+    this.auth.login(this.email, this.password).subscribe(success => {
+      if (success) {
+        const role = this.auth.getUserRole();
+        switch (role) {
+          case 'admin':
+            this.router.navigate(['/admin']);
+            break;
+          case 'medico':
+            this.router.navigate(['/dashboard']);
+            break;
+          case 'granjero':
+            this.router.navigate(['/dashboard']);
+            break;
+          case 'encargado':
+            this.router.navigate(['/dashboard']);
+            break;
+          default:
+            this.router.navigate(['/']);
+        }
+      } else {
+        alert('Credenciales inválidas');
+      }
+    });
+  }
 }

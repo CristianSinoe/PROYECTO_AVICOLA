@@ -1,52 +1,42 @@
+// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable, map, of } from 'rxjs';
+import { of } from 'rxjs'; // Necesario para crear un Observable
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-    private user: any = null;
 
-    constructor(private http: HttpClient, private router: Router) {}
+  private users = [
+    { email: 'admin@example.com', password: 'admin123', role: 'admin' },
+    { email: 'medico@example.com', password: 'medico123', role: 'medico' },
+    { email: 'granjero@example.com', password: 'granjero123', role: 'granjero' },
+    { email: 'encargado@example.com', password: 'encargado123', role: 'encargado' }
+  ];
 
-    login(email: string, password: string): Observable<boolean> {
-        return this.http.get<any>('/assets/data.json').pipe(
-            map(data => {
-                const user = data.usuarios.find((u: any) => u.email === email && u.password === password);
-                if (user) {
-                    localStorage.setItem('user', JSON.stringify(user));
-                    this.user = user;
-                    return true;
-                }
-                return false;
-            })
-        );
+  constructor() {}
+
+  // Retorna un Observable para el login
+  login(email: string, password: string) {
+    const user = this.users.find(u => u.email === email && u.password === password);
+    if (user) {
+      localStorage.setItem('user', JSON.stringify({ email: user.email, role: user.role }));
+      return of(true); // Retorna un Observable con true si el login es exitoso
     }
+    return of(false); // Retorna un Observable con false si el login falla
+  }
 
-    getUser(): any {
-        if (!this.user) {
-            const saved = localStorage.getItem('user');
-            this.user = saved ? JSON.parse(saved) : null;
-        }
-        return this.user;
-    }
+  getUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
 
-    getUserRole(): string {
-        return this.getUser()?.role;
-    }
+  getUserRole() {
+    const user = this.getUser();
+    return user ? user.role : null;
+  }
 
-    isAuthenticated(): boolean {
-        return !!this.getUser();
-    }
-
-    hasRole(roles: string[]): boolean {
-        const role = this.getUserRole();
-        return roles.includes(role);
-    }
-
-    logout(): void {
-        localStorage.removeItem('user');
-        this.user = null;
-        this.router.navigate(['/auth/login']);
-    }
+  logout() {
+    localStorage.removeItem('user');
+  }
 }
