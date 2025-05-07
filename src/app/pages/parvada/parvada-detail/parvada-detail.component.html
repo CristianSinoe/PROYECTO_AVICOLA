@@ -1,0 +1,32 @@
+<div class="card">
+    <h5 class="flex items-center justify-between">KAZETAS DE LA PARVADA "{{ parvadaNombre }}"</h5>
+  
+    <p-table [value]="kazetas()" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Ubicación</th>
+          <th>Capacidad</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-kazeta let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>
+            <a [routerLink]="['/kazeta', zona, parvadaNombre, kazeta.nombre]">
+              {{ kazeta.nombre }}
+            </a>
+          </td>          
+          <td>{{ kazeta.ubicacion }}</td>
+          <td>{{ kazeta.capacidad }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="empty">
+        <tr>
+          <td colspan="4" class="text-center">No hay kazetas asociadas</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  

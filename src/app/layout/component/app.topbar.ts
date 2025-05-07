@@ -7,11 +7,13 @@ import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [CommonModule, StyleClassModule],
+    imports: [CommonModule, StyleClassModule, OverlayPanelModule],
     template: `
         <div class="layout-topbar">
             <div class="layout-topbar-logo-container">
@@ -52,30 +54,65 @@ import { Router } from '@angular/router';
                 <!-- Menú de acciones de la barra superior -->
                 <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" (click)="onLogout()">
                     <i class="pi pi-calendar"></i> <!-- Icono para logout -->
-                    <span>Cerrar sesión</span>
+                    <span>CERRAR SESION</span>
                 </button>
 
                 <!-- Menú de perfil u otras opciones -->
-                <div class="layout-topbar-menu hidden lg:block">
+                 <!-- Visible solo en pantallas grandes -->
+                  <div class="layout-topbar-menu hidden lg:block">
                     <div class="layout-topbar-menu-content">
                         <button type="button" class="layout-topbar-action">
                             <i class="pi pi-calendar"></i>
                             <span>CALENDARIO</span>
                         </button>
-                        <button class="layout-topbar-action" pStyleClass="@next" (click)="onLogout()">
-                    <i class="pi pi-user"></i> <!-- Icono para logout -->
-                    <span>Cerrar sesión</span>
-                </button>
+                        <!-- <button class="layout-topbar-action" (click)="onLogout()">
+                            <i class="pi pi-user"></i>
+                            <span>CERRAR SESION</span>
+                        </button> -->
                         <button type="button" class="layout-topbar-action">
                             <i class="pi pi-inbox"></i>
                             <span>MENSAJES</span>
                         </button>
-                        <button type="button" class="layout-topbar-action">
+                        <!-- <button type="button" class="layout-topbar-action">
                             <i class="pi pi-user"></i>
                             <span>PERFIL</span>
+                        </button> -->
+                        <button class="layout-topbar-action" (click)="onLogout()">
+                            <i class="pi pi-user"></i>
+                            <span>CERRAR SESION</span>
                         </button>
                     </div>
                 </div>
+
+<!-- Botón desplegable solo visible en móviles -->
+<p-overlayPanel #op>
+    <button type="button" class="layout-topbar-action w-full justify-start" (click)="goToCalendar()">
+        <i class="pi pi-calendar mr-2"></i>
+        <span>CALENDARIO</span>
+    </button>
+    <button class="layout-topbar-action w-full justify-start" (click)="onLogout()">
+        <i class="pi pi-user mr-2"></i>
+        <span>CERRAR SESION</span>
+    </button>
+    <button type="button" class="layout-topbar-action w-full justify-start">
+        <i class="pi pi-inbox mr-2"></i>
+        <span>MENSAJES</span>
+    </button>
+    <button type="button" class="layout-topbar-action w-full justify-start">
+        <i class="pi pi-user mr-2"></i>
+        <span>PERFIL</span>
+    </button>
+    <!-- <button class="layout-topbar-action w-full justify-start" (click)="onLogout()">
+        <i class="pi pi-user mr-2"></i>
+        <span>CERRAR SESION</span>
+    </button> -->
+</p-overlayPanel>
+
+<!-- Botón para desplegar el overlayPanel en móviles -->
+<button class="layout-topbar-action block lg:hidden" (click)="op.toggle($event)">
+    <i class="pi pi-ellipsis-v"></i>
+</button>
+
             </div>
         </div>
     `
@@ -94,4 +131,8 @@ export class AppTopbar {
         this.authService.logout(); // Llamamos al método de logout del servicio
         this.router.navigate(['/auth/login']); // Redirigimos al login
     }
+
+    goToCalendar() {
+        this.router.navigate(['/calendar']); // cambia por la ruta deseada
+      }
 }

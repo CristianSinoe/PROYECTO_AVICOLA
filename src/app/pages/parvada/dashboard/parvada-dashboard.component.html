@@ -1,0 +1,78 @@
+<p-toolbar class="mb-4">
+    <ng-template #start>
+      <p-button label="NUEVO" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
+    </ng-template>
+  </p-toolbar>
+  
+  <p-table #dt [value]="parvadas()" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id">
+    <ng-template pTemplate="caption">
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">ADMINISTRACIÓN DE PARVADAS</h5>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Buscar..." />
+        </p-iconfield>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>FOLIO</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th># POLLOS</th>
+        <th>FECHA INICIO</th>
+        <th>FECHA DE FIN</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-parvada>
+      <tr>
+        <td></td>
+        <td>
+          <a [routerLink]="['/parvada', zona, parvada.nombre]">
+            {{ parvada.nombre }}
+          </a>
+        </td>        
+        <td>{{ parvada.descripcion }}</td>
+        <td>{{ parvada.numPollos }}</td>
+        <td>{{ parvada.fechaIngreso }}</td>
+        <td></td>
+        <td>
+          <p-button icon="pi pi-pencil" [outlined]="true" class="mr-2" (click)="editParvada(parvada)"></p-button>
+          <p-button icon="pi pi-trash" severity="danger" [outlined]="true" (click)="deleteParvada(parvada)"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    
+  </p-table>
+  
+  <p-dialog header="PARVADA" [(visible)]="parvadaDialog" [style]="{ width: '600px' }" [modal]="true" [closable]="false">
+    <ng-template pTemplate="content">
+      <div class="p-fluid formgrid grid gap-3">
+        <div class="field col-12 md:col-6">
+          <label for="nombre">NOMBRE</label>
+          <input id="nombre" type="text" pInputText [(ngModel)]="parvada.nombre" class="w-full" />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="descripcion">DESCRIPCION</label>
+          <input id="descripcion" type="text" pInputText [(ngModel)]="parvada.descripcion" class="w-full" />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="pollos">CANTIDAD DE POLLOS</label>
+          <p-inputnumber [(ngModel)]="parvada.numPollos" [min]="0" class="w-full" inputId="pollos" />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="fechaIngreso">FECHA DE INGRESO</label>
+          <input type="date" pInputText [(ngModel)]="parvada.fechaIngreso" class="w-full" />
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button label="CANCELAR" icon="pi pi-times" text (click)="hideDialog()"></p-button>
+      <p-button label="GUARDAR" icon="pi pi-check" (click)="saveParvada()"></p-button>
+    </ng-template>
+  </p-dialog>
+  
+  <p-toast></p-toast>
+  <p-confirmdialog></p-confirmdialog>
+  
