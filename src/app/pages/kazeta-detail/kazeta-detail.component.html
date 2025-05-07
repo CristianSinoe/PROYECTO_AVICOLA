@@ -1,47 +1,57 @@
-  <div class="grid grid-cols-12 gap-4">
-    <!-- Promedio de Alimento -->
-    <div class="col-span-12 xl:col-span-6">
-      <div class="card mb-0">
-        <div class="flex justify-between items-center mb-4">
-          <div>
-            <span class="block text-muted-color font-medium mb-4">PROMEDIO DE ALIMENTO</span>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ valorAlimento }}</div>
-          </div>
-          <div class="flex items-center justify-center bg-cyan-100 dark:bg-cyan-400/10 rounded-border ml-4" style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-chart-bar text-cyan-500 text-3xl"></i>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="grid p-fluid">
+  <!-- Alimento -->
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h4>UBICACION: {{ kazetaNombre }}</h4>
+      <h5>ALIMENTO</h5>
+      <p>TOTAL ACUMULADO: <strong>{{ totalAlimento }}</strong></p>
 
-    <!-- Promedio de Mortalidad -->
-    <div class="col-span-12 xl:col-span-6">
-      <div class="card mb-0">
-        <div class="flex justify-between items-center mb-4">
-          <div>
-            <span class="block text-muted-color font-medium mb-4">PROMEDIO DE MORTALIDAD</span>
-            <div class="text-surface-900 dark:text-surface-0 font-medium text-4xl">{{ valorMortalidad }}</div>
-          </div>
-          <div class="flex items-center justify-center bg-cyan-100 dark:bg-cyan-400/10 rounded-border ml-4" style="width: 2.5rem; height: 2.5rem">
-            <i class="pi pi-chart-bar text-cyan-500 text-3xl"></i>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <br>
+      <p-table [value]="registrosAlimento" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>FECHA</th>
+            <th>NO.BOLETA</th>
+            <th>CANTIDAD</th>
+            <th>TIPO</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.fecha }}</td>
+            <td>{{ row.boleta }}</td>
+            <td>{{ row.cantidad }}</td>
+            <td>{{ row.tipo }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
 
-  <!-- Gráficos -->
-    <div class="col-span-12 xl:col-span-12">
-      <div class="card !mb-8">
-        <div class="font-semibold text-xl mb-4">PROMEDIO DE ALIMENTO:</div>
-        <p-chart type="bar" [data]="alimentoChartData" [options]="chartOptions" class="h-80"></p-chart>
-      </div>
-    
-    <div class="col-span-12 xl:col-span-12">
-      <div class="card !mb-8">
-        <div class="font-semibold text-xl mb-4">PROMEDIO DE MORTALIDAD:</div>
-        <p-chart type="bar" [data]="mortalidadChartData" [options]="mortalidadChartOptions" class="h-80"></p-chart>
-      </div>
-      </div>
-      </div>
+      <button pButton label="Exportar" class="mt-3" (click)="exportar('pdf')"></button>
+    </div>
+  </div>
+
+  <!-- Mortalidad -->
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h4>NUMERO DE CASETA: {{ kazetaNombre }}</h4>
+      <h5>MORTALIDAD</h5>
+      <p>TOTAL ACUMULADO: <strong>{{ totalMortalidad }}</strong></p>
+
+      <p-table [value]="registrosMortalidad" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>FECHA</th>
+            <th>CANTIDAD</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.fecha }}</td>
+            <td>{{ row.cantidad }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <button pButton label="EXPORTAR" class="mt-3" (click)="exportar('excel')"></button>
+    </div>
+  </div>
+</div>

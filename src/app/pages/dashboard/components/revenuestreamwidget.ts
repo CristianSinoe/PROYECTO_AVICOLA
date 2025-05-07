@@ -45,86 +45,76 @@ export class RevenueStreamWidget implements OnInit, OnDestroy {
     const textColor = documentStyle.getPropertyValue('--text-color');
     const borderColor = documentStyle.getPropertyValue('--surface-border');
     const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
-
+  
     this.dataService.getData().subscribe(data => {
       const alimentoData = data.promedioAlimento;
       const mortalidadData = data.promedioMortalidad;
-
-      this.alimentoChartData = {
-        labels: alimentoData.labels,
-        datasets: alimentoData.datasets.map((ds: any, index: number) => ({
+  
+      const zonas = Object.keys(alimentoData);
+      const maxKazetas = Math.max(...zonas.map(z => alimentoData[z].data.length));
+  
+      // 🔹 Datos apilados por Kazeta Index
+      const alimentoDatasets = Array.from({ length: maxKazetas }, (_, i) => {
+        const dataset = {
           type: 'bar',
-          label: ds.label,
-          data: ds.data,
-          backgroundColor: documentStyle.getPropertyValue(`--p-primary-${400 - index * 100}`),
-          barThickness: 32,
-          ...(index === alimentoData.datasets.length - 1 && {
-            borderRadius: {
-              topLeft: 8,
-              topRight: 8,
-              bottomLeft: 0,
-              bottomRight: 0
-            },
+          label: `Kazeta ${i + 1}`,
+          data: zonas.map(z => alimentoData[z].data[i] ?? 0),
+          backgroundColor: documentStyle.getPropertyValue(`--p-primary-${400 - i * 100}`),
+          barThickness: 32
+        };
+  
+        if (i === maxKazetas - 1) {
+          Object.assign(dataset, {
+            borderRadius: { topLeft: 8, topRight: 8 },
             borderSkipped: false
-          })
-        }))
-      };
-
-      this.mortalidadChartData = {
-        labels: mortalidadData.labels,
-        datasets: mortalidadData.datasets.map((ds: any, index: number) => ({
+          });
+        }
+  
+        return dataset;
+      });
+  
+      const mortalidadDatasets = Array.from({ length: maxKazetas }, (_, i) => {
+        const dataset = {
           type: 'bar',
-          label: ds.label,
-          data: ds.data,
-          backgroundColor: this.getRedTone(index),
-          barThickness: 32,
-          ...(index === mortalidadData.datasets.length - 1 && {
-            borderRadius: {
-              topLeft: 8,
-              topRight: 8,
-              bottomLeft: 0,
-              bottomRight: 0
-            },
+          label: `Kazeta ${i + 1}`,
+          data: zonas.map(z => mortalidadData[z]?.data[i] ?? 0),
+          backgroundColor: this.getRedTone(i),
+          barThickness: 32
+        };
+  
+        if (i === maxKazetas - 1) {
+          Object.assign(dataset, {
+            borderRadius: { topLeft: 8, topRight: 8 },
             borderSkipped: false
-          })
-        }))
-      };
-
+          });
+        }
+  
+        return dataset;
+      });
+  
+      this.alimentoChartData = { labels: zonas, datasets: alimentoDatasets };
+      this.mortalidadChartData = { labels: zonas, datasets: mortalidadDatasets };
+  
       this.chartOptions = {
         maintainAspectRatio: false,
-        aspectRatio: 0.8,
+        aspectRatio: 0.9,
         plugins: {
-          legend: {
-            labels: {
-              color: textColor
-            }
-          }
+          legend: { labels: { color: textColor } }
         },
         scales: {
           x: {
             stacked: true,
-            ticks: {
-              color: textMutedColor
-            },
-            grid: {
-              color: 'transparent',
-              borderColor: 'transparent'
-            }
+            ticks: { color: textMutedColor },
+            grid: { color: 'transparent', borderColor: 'transparent' }
           },
           y: {
             stacked: true,
-            ticks: {
-              color: textMutedColor
-            },
-            grid: {
-              color: borderColor,
-              borderColor: 'transparent',
-              drawTicks: false
-            }
+            ticks: { color: textMutedColor },
+            grid: { color: borderColor, borderColor: 'transparent', drawTicks: false }
           }
         }
       };
-
+  
       this.mortalidadChartOptions = {
         ...this.chartOptions,
         plugins: {
@@ -136,7 +126,7 @@ export class RevenueStreamWidget implements OnInit, OnDestroy {
         }
       };
     });
-  }
+  }  
 
   getRedTone(index: number) {
     const redTones = ['#ff7f7f', '#ff4c4c', '#ff0000'];

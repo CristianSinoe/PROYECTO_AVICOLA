@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-menu',
@@ -19,7 +20,7 @@ import { DataService } from '../../services/data.service';
 export class AppMenu {
     model: MenuItem[] = [];
 
-    constructor(private dataService: DataService) {}
+    constructor(private dataService: DataService, private router: Router) {}
 
     ngOnInit() {
         // Obtenemos los datos del data.json
@@ -32,21 +33,21 @@ export class AppMenu {
                 {
                     label: 'COMPONENTES',
                     items: [
-                        { label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
-                        { label: 'ENTRADA', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
-                         { label: 'BOTONES', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
+                        // { label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
+                        // { label: 'ENTRADA', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
+                        // { label: 'BOTONES', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
                         { label: 'LISTA DE TRABAJADORES', icon: 'pi pi-fw pi-user', routerLink: ['/uikit/table'] },
-                        { label: 'LISTAS', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                        { label: 'ARBOL', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
-                        { label: 'PANEL', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                        { label: 'INCRUSTAR', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                        { label: 'MEDIA', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                        { label: 'MENU', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
-                        { label: 'MENSAJE', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                         { label: 'ARCHIVOS', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                        { label: 'ESTADISTICAS', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                        { label: 'CALENDARIO', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
-                        { label: 'VARIADO', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
+                        // { label: 'LISTAS', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
+                        // { label: 'ARBOL', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
+                        // { label: 'PANEL', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
+                        // { label: 'INCRUSTAR', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
+                        // { label: 'MEDIA', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
+                        // { label: 'MENU', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'] },
+                        // { label: 'MENSAJE', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
+                        //  { label: 'ARCHIVOS', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
+                        // { label: 'ESTADISTICAS', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
+                        // { label: 'CALENDARIO', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
+                        // { label: 'VARIADO', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
                     ]
                 },
                 {
@@ -68,6 +69,11 @@ export class AppMenu {
                             label: 'ZONAS',
                             icon: 'pi pi-fw pi-user',
                             items: this.crearMenuZonas(data)
+                        },
+                        {
+                            label: 'PARVADAS',
+                            icon: 'pi pi-fw pi-user',
+                            items: this.crearMenuParvadas(data)
                         }
                     ]
                 },
@@ -107,7 +113,8 @@ export class AppMenu {
             //                     items: [{ label: 'SUBMENU 1.2.1', icon: 'pi pi-fw pi-bookmark' }]
             //                 }
             //             ]
-            //         },
+            //         }
+            // ,
             //         {
             //             label: 'SUBMENU 2',
             //             icon: 'pi pi-fw pi-bookmark',
@@ -152,24 +159,29 @@ export class AppMenu {
     // Función para crear las zonas dinámicamente en el menú
     crearMenuZonas(data: any): MenuItem[] {
         const zonasMenu: MenuItem[] = [];
-
-        // Iteramos por cada zona (dataset de cada zona en promedioAlimento)
-        data.promedioAlimento.datasets.forEach((dataset: any, index: number) => {
-            const zona = dataset.label; // Z1, Z2, Z3
-            const kazetas = data.promedioAlimento.labels; // Las kazetas para la zona (KAZETA 1, KAZETA 2...)
-
-            // Crear el objeto de menú para cada zona
+    
+        Object.keys(data.promedioAlimento).forEach((zona: string) => {
             zonasMenu.push({
                 label: zona,
-                icon: 'pi pi-fw pi-map-marker', // Icono para la zona (puedes cambiarlo si deseas)
-                items: kazetas.map((kazeta: string, kazetaIndex: number) => ({
-                    label: `${kazeta}`,  // Mostrar el nombre de la kazeta
-                    icon: 'pi pi-fw pi-cog', // Puedes cambiar el icono también
-                    routerLink: [`/kazeta/${zona}/${kazetaIndex + 1}`] // Añades el enlace dinámico (por ejemplo: /kazeta/Z1/1)
-                }))
+                icon: 'pi pi-fw pi-map-marker',
+                command: () => this.router.navigate([`/zona/${encodeURIComponent(zona)}`])
             });
         });
-
+    
         return zonasMenu;
     }
+
+    crearMenuParvadas(data: any): MenuItem[] {
+        const parvadasMenu: MenuItem[] = [];
+    
+        Object.keys(data.promedioAlimento).forEach((zona: string) => {
+            parvadasMenu.push({
+                label: zona,
+                icon: 'pi pi-fw pi-map-marker',
+                command: () => this.router.navigate([`/parvada/${encodeURIComponent(zona)}`])
+            });
+        });
+    
+        return parvadasMenu;
+    }    
 }

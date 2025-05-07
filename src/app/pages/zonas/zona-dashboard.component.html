@@ -1,0 +1,91 @@
+<p-toolbar class="mb-4">
+  <ng-template #start>
+    <p-button label="NUEVO" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
+    <!-- <p-button label="Eliminar" icon="pi pi-trash" severity="secondary" outlined (onClick)="deleteKazeta(selectedKazetas[0])" [disabled]="!selectedKazetas.length" /> -->
+  </ng-template>
+</p-toolbar>
+<br>
+<p-table #dt [value]="kazetas()" [paginator]="true" [rows]="10" [rowHover]="true" [(selection)]="selectedKazetas" dataKey="id">
+  <ng-template pTemplate="caption">
+    <div class="flex items-center justify-between">
+      <h5 class="m-0">ADMINISTRACION DE KAZETAS</h5>
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-search" />
+        <input
+        pInputText
+        type="text"
+        (input)="onGlobalFilter($event)"
+        placeholder="BUSCAR..." />
+      </p-iconfield>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSelectableRowCheckbox></th>
+      <th>NOMBRE</th>
+      <th>UBICACION</th>
+      <!-- <th>KAZETAS</th> -->
+      <th>REGISTRO</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-kazeta>
+    <tr>
+      <td>
+      </td>
+      <td>{{ kazeta.nombre }}</td>
+      <td>{{ kazeta.ubicacion }}</td>
+      <!-- <td>{{ kazeta.numCasetas }}</td> -->
+      <td>{{ kazeta.numRegistro }}</td>
+      <td>
+        <p-button icon="pi pi-pencil" [outlined]="true" class="mr-2" (click)="editKazeta(kazeta)"></p-button>
+        <p-button icon="pi pi-trash" severity="danger" [outlined]="true" (click)="deleteKazeta(kazeta)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Kazeta" [(visible)]="kazetaDialog" [style]="{ width: '600px' }" [modal]="true" [closable]="false">
+  <ng-template pTemplate="content">
+    <div class="p-fluid formgrid grid gap-3">
+      <div class="field col-12 md:col-6">
+        <label for="nombre">NOMBRE</label>
+        <input id="nombre" type="text" pInputText [(ngModel)]="kazeta.nombre" class="w-full" />
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="ubicacion">UBICACION</label>
+        <input id="ubicacion" type="text" pInputText [(ngModel)]="kazeta.ubicacion" class="w-full" />
+      </div>
+
+      <!-- <div class="field col-12 md:col-6">
+        <label for="casetas">NUMERO DE KAZETAS</label>
+        <p-inputnumber [(ngModel)]="kazeta.numCasetas" [min]="0" class="w-full" inputId="casetas" />
+      </div> -->
+
+      <div class="field col-12 md:col-6">
+        <label for="certificado">CERTIFICADO SAGARPA</label>
+        <p-fileUpload mode="basic" name="certificado" url="./upload" accept=".pdf" chooseLabel="SUBIR ARCHIVO" />
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="mostrarCert">MOSTRAR CERTIFICADO</label>
+        <p-toggleButton [(ngModel)]="mostrarCertificado" onLabel="VER" offLabel="OCULTAR" class="w-full" />
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="numRegistro">NUMERO DE REGISTRO</label>
+        <input id="numRegistro" type="text" pInputText [(ngModel)]="kazeta.numRegistro" class="w-full" />
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button label="CANCELAR" icon="pi pi-times" text (click)="hideDialog()"></p-button>
+    <p-button label="GUARDAR" icon="pi pi-check" (click)="saveKazeta()"></p-button>
+  </ng-template>
+</p-dialog>
+
+
+<p-toast></p-toast>
+<p-confirmdialog></p-confirmdialog>
