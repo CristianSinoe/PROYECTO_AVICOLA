@@ -1,1 +1,19 @@
-<p>registro-kazeta works!</p>
+<div class="p-4">
+  <h3>REGISTROS DE KAZETAS</h3>
+  <p-table [value]="registros" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>FECHA</th>
+        <th>DESCRIPCION</th>
+        <th>CANTIDAD</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro>
+      <tr>
+        <td>{{ registro.fecha }}</td>
+        <td>{{ registro.descripcion }}</td>
+        <td>{{ registro.cantidad }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

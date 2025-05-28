@@ -9,21 +9,15 @@ import { KazetaDetailComponent } from './app/pages/kazeta-detail/kazeta-detail.c
 import { ParvadaDetailComponent } from './app/pages/parvada/parvada-detail/parvada-detail.component';
 
 export const appRoutes: Routes = [
+  // Rutas para administradores
   {
     path: '',
     component: AppLayout,
     canActivate: [AuthGuard],
-    data: { roles: ['admin'] }, // Solo admin puede acceder a estas rutas
+    data: { roles: ['admin'] },
     children: [
       { path: '', component: Dashboard },
       { path: 'kazeta/:zona/:kazetaIndex', component: KazetaDetailComponent },
-      {
-        path: 'granjero',
-        loadChildren: () =>
-          import('./app/pages/granjero/granjero.routes').then(m => m.granjeroRoutes),
-        canActivate: [AuthGuard],
-        data: { roles: ['granjero'] } // Solo granjeros pueden acceder
-      },
       {
         path: 'zona/:zona',
         loadComponent: () =>
@@ -39,31 +33,43 @@ export const appRoutes: Routes = [
         loadComponent: () =>
           import('./app/pages/parvada/parvada-detail/parvada-detail.component').then(m => m.ParvadaDetailComponent)
       },
-      { 
-        path: 'uikit', 
-        loadChildren: () => import('./app/pages/uikit/uikit.routes') 
-      },
-      { 
-        path: 'documentation', 
-        component: Documentation 
-      },
-      { 
-        path: 'pages', 
-        loadChildren: () => import('./app/pages/pages.routes') 
-      },
       {
         path: 'kazeta/:zona/:parvada/:kazetaNombre',
         loadComponent: () =>
           import('./app/pages/kazeta-detail/kazeta-detail.component').then(m => m.KazetaDetailComponent)
+      },
+      {
+        path: 'uikit',
+        loadChildren: () => import('./app/pages/uikit/uikit.routes')
+      },
+      {
+        path: 'documentation',
+        component: Documentation
+      },
+      {
+        path: 'pages',
+        loadChildren: () => import('./app/pages/pages.routes')
       }
     ]
   },
+
+  // Rutas exclusivas para granjeros
+  {
+    path: 'granjero',
+    component: AppLayout,
+    canActivate: [AuthGuard],
+    data: { roles: ['granjero'] },
+    loadChildren: () =>
+      import('./app/pages/granjero/granjero.routes').then(m => m.granjeroRoutes)
+  },
+
+  // Rutas públicas y otras rutas protegidas
   {
     path: 'admin',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./app/pages/admin/admin.routes').then(m => m.default),
-    data: { roles: ['admin'] } // Solo admins
+    data: { roles: ['admin'] }
   },
   {
     path: 'landing',
