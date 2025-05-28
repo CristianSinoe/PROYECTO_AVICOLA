@@ -3,7 +3,7 @@
       <p-button label="NUEVO" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
     </ng-template>
   </p-toolbar>
-  
+  <br>
   <p-table #dt [value]="parvadas()" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id">
     <ng-template pTemplate="caption">
       <div class="flex items-center justify-between">

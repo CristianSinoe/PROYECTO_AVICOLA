@@ -54,7 +54,7 @@ export class ParvadaDashboardComponent implements OnInit {
   parvadaDialog = false;
   submitted = false;
   selectedParvadas: Parvada[] = [];
-  zona: string = ''; // 👈 Zona almacenada aquí
+  zona: string = '';
 
   @ViewChild('dt') dt!: Table;
 

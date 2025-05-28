@@ -7,16 +7,24 @@ export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        // Verifica si el usuario está autenticado
-        const user = this.authService.getUser(); // Asegúrate de que esta función devuelva el usuario autenticado
+  const user = this.authService.getUser();
 
-        if (user) {
-            return true; // Permite el acceso si el usuario está autenticado
-        }
+  if (!user) {
+    this.router.navigate(['/auth/login']);
+    return false;
+  }
 
-        // Si no está autenticado, redirige al login
-        this.router.navigate(['/auth/login']);
-        return false;
+  const allowedRoles = route.data['roles'] as string[] | undefined;
+  if (allowedRoles && allowedRoles.length > 0) {
+    if (allowedRoles.includes(user.role)) {
+      return true;
+    } else {
+      this.router.navigate(['/notfound']);
+      return false;
     }
+  }
+
+  return true;
 }
 
+}

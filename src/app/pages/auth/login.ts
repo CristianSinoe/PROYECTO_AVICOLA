@@ -84,7 +84,7 @@ export class Login {
             this.router.navigate(['/']);
         }
       } else {
-        alert('Credenciales inválidas');
+        alert('CREDENCIALES INVALIDAS');
       }
     });
   }
