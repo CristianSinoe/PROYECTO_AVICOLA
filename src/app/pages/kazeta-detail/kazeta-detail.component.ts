@@ -5,6 +5,10 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import * as XLSX from 'xlsx';           
+import * as FileSaver from 'file-saver'; 
+import jsPDF from 'jspdf';              
+import autoTable from 'jspdf-autotable';
 
 interface Registro {
   fecha: string;
@@ -55,6 +59,51 @@ export class KazetaDetailComponent implements OnInit {
   }  
 
   exportar(tipo: 'pdf' | 'excel') {
-    console.log(`Exportando como ${tipo.toUpperCase()}`);
-  }
+    if (tipo === 'excel') {
+      const wsAlimento = XLSX.utils.json_to_sheet(this.registrosAlimento);
+      const wsMortalidad = XLSX.utils.json_to_sheet(this.registrosMortalidad);
+  
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, wsAlimento, 'Alimento');
+      XLSX.utils.book_append_sheet(wb, wsMortalidad, 'Mortalidad');
+  
+      const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      FileSaver.saveAs(blob, `Reporte-Kazeta-${this.kazetaNombre}.xlsx`);
+    } else if (tipo === 'pdf') {
+      const doc = new jsPDF();
+  
+      doc.text(`Reporte Kazeta: ${this.kazetaNombre}`, 14, 10);
+
+      
+      let startY = 20;
+
+      autoTable(doc, {
+        head: [['Fecha', 'Boleta', 'Cantidad', 'Tipo']],
+        body: this.registrosAlimento.map(r => [
+          r.fecha ?? '',
+          r.boleta ?? '',
+          r.cantidad ?? 0,
+          r.tipo ?? ''
+        ]),        
+        startY: startY,  
+        theme: 'striped',
+        headStyles: { fillColor: [22, 160, 133] },
+        margin: { bottom: 10 }
+      });
+
+     
+      startY += 20; 
+
+      autoTable(doc, {
+        head: [['Fecha', 'Cantidad']],
+        body: this.registrosMortalidad.map(r => [r.fecha, r.cantidad]),
+        startY: startY, 
+        theme: 'striped',
+        headStyles: { fillColor: [192, 57, 43] }
+      });
+  
+      doc.save(`Reporte-Kazeta-${this.kazetaNombre}.pdf`);
+    }
+  } 
 }

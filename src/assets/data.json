@@ -29,6 +29,10 @@
   "ORIZABA": {
     "labels": ["KZO", "KAZETA 8"],
     "data": [4100, 8000]
+  },
+  "CORDOBA": {
+    "labels": ["KZO", "KAZETA 8"],
+    "data": [4100, 8000]
   }
 },
 "promedioMortalidad": {
@@ -47,25 +51,29 @@
   "ORIZABA": {
     "labels": ["KZO", "KAZETA 8"],
     "data": [4, 2]
+  },
+  "CORDOBA": {
+    "labels": ["KZO", "KAZETA 8"],
+    "data": [4, 2]
   }
 },
 "parvadas": {
   "Z1": [
-    { "nombre": "Parvada 1", "descripcion": "Descripción de Parvada 1", "numPollos": 933, "fechaIngreso": "2025-05-07" },
-    { "nombre": "Parvada 2", "descripcion": "Descripción de Parvada 2", "numPollos": 271, "fechaIngreso": "2025-05-07" },
-    { "nombre": "Parvada 3", "descripcion": "Descripción de Parvada 3", "numPollos": 629, "fechaIngreso": "2025-05-07" },
-    { "nombre": "Parvada 4", "descripcion": "Descripción de Parvada 4", "numPollos": 588, "fechaIngreso": "2025-05-07" },
-    { "nombre": "Parvada 5", "descripcion": "Descripción de Parvada 5", "numPollos": 265, "fechaIngreso": "2025-05-07" }
+    { "nombre": "PARVADA 1", "descripcion": "DESCRIPCION DE PARVADA 1", "numPollos": 933, "fechaIngreso": "2025-05-07" },
+    { "nombre": "PARVADA 2", "descripcion": "DESCRIPCION DE PARVADA 2", "numPollos": 271, "fechaIngreso": "2025-05-07" },
+    { "nombre": "PARVADA 3", "descripcion": "DESCRIPCION DE PARVADA 3", "numPollos": 629, "fechaIngreso": "2025-05-07" },
+    { "nombre": "PARVADA 4", "descripcion": "DESCRIPCION DE PARVADA 4", "numPollos": 588, "fechaIngreso": "2025-05-07" },
+    { "nombre": "PARVADA 5", "descripcion": "DESCRIPCION DE PARVADA  5", "numPollos": 265, "fechaIngreso": "2025-05-07" }
   ],
   "Z2": [
-    { "nombre": "Parvada A", "descripcion": "Descripción de Parvada A", "numPollos": 440, "fechaIngreso": "2025-05-07" },
-    { "nombre": "Parvada B", "descripcion": "Descripción de Parvada B", "numPollos": 720, "fechaIngreso": "2025-05-07" }
+    { "nombre": "PARVADA A", "descripcion": "DESCRIPCION DE PARVADA A", "numPollos": 440, "fechaIngreso": "2025-05-07" },
+    { "nombre": "PARVADA B", "descripcion": "DESCRIPCION DE PARVADA B", "numPollos": 720, "fechaIngreso": "2025-05-07" }
   ],
   "Z3": [
-    { "nombre": "Parvada Única", "descripcion": "Descripción única", "numPollos": 380, "fechaIngreso": "2025-05-07" }
+    { "nombre": "PARVADA A1", "descripcion": "DESCRIPCION DE PARVADA", "numPollos": 380, "fechaIngreso": "2025-05-07" }
   ],
   "ORIZABA": [
-    { "nombre": "Parvada Única", "descripcion": "Descripción única", "numPollos": 380, "fechaIngreso": "2025-05-07" }
+    { "nombre": "PARVADA O1", "descripcion": "DESCRIPCION DE PARVADA ", "numPollos": 380, "fechaIngreso": "2025-05-07" }
   ]
 },
 "kazetasParvada": {

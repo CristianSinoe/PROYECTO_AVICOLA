@@ -1,6 +1,10 @@
-// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs'; // Necesario para crear un Observable
+import { Observable, of } from 'rxjs';
+
+interface User {
+  email: string;
+  role: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -16,27 +20,34 @@ export class AuthService {
 
   constructor() {}
 
-  // Retorna un Observable para el login
-  login(email: string, password: string) {
+  // Retorna Observable<boolean> para login
+  login(email: string, password: string): Observable<boolean> {
     const user = this.users.find(u => u.email === email && u.password === password);
     if (user) {
       localStorage.setItem('user', JSON.stringify({ email: user.email, role: user.role }));
-      return of(true); // Retorna un Observable con true si el login es exitoso
+      return of(true);
     }
-    return of(false); // Retorna un Observable con false si el login falla
+    return of(false);
   }
 
-  getUser() {
+  // Retorna usuario o null
+  getUser(): User | null {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    return user ? JSON.parse(user) as User : null;
   }
 
-  getUserRole() {
+  // Retorna rol o null
+  getUserRole(): string | null {
     const user = this.getUser();
     return user ? user.role : null;
   }
 
-  logout() {
+  // Retorna booleano si está autenticado
+  isAuthenticated(): boolean {
+    return this.getUser() !== null;
+  }
+
+  logout(): void {
     localStorage.removeItem('user');
   }
 }
