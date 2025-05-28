@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import * as XLSX from 'xlsx';           
 import * as FileSaver from 'file-saver'; 
-import jsPDF from 'jspdf';              
+import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 interface Registro {

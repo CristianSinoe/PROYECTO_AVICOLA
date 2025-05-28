@@ -75,7 +75,7 @@ export class Login {
             this.router.navigate(['/dashboard']);
             break;
           case 'granjero':
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/granjero']);
             break;
           case 'encargado':
             this.router.navigate(['/dashboard']);

@@ -1,1 +1,21 @@
-<p>granjero.layout works!</p>
+<div class="surface-ground min-h-screen flex flex-column">
+  <header>
+    <p-menubar [model]="[]">
+      <div class="text-xl font-bold text-primary-600">SISTEMA AVICOLA - GRANJERO</div>
+    </p-menubar>
+  </header>
+
+  <div class="flex flex-grow-1">
+    <aside class="w-20rem surface-section border-right-1 border-300">
+      <app-granjero-menu></app-granjero-menu>
+    </aside>
+
+    <main class="flex-grow-1 p-4 overflow-auto">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <footer class="surface-section p-3 text-center text-secondary">
+    &copy; 2025 - EMPRESA AVICOLA - GRANJERO
+  </footer>
+</div>
