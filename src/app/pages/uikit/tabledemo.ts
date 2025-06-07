@@ -118,7 +118,7 @@ interface expandedRows {
                                 <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
                             </div>
                         </th>
-                        <th style="min-width: 12rem">
+                        <!-- <th style="min-width: 12rem">
                             <div class="flex justify-between items-center">
                                 ESTATUS
                                 <p-columnFilter field="status" matchMode="equals" display="menu">
@@ -152,7 +152,7 @@ interface expandedRows {
                                 <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
                             </div>
                         </th>
-                    </tr>
+                    </tr> -->
                 </ng-template>
                 <ng-template #body let-customer>
                     <tr>
@@ -178,7 +178,7 @@ interface expandedRows {
                         <td>
                             {{ customer.balance | currency: 'USD' : 'symbol' }}
                         </td>
-                        <td>
+                        <!-- <td>
                             <p-tag [value]="customer.status.toLowerCase()" [severity]="getSeverity(customer.status.toLowerCase())" styleClass="dark:!bg-surface-900" />
                         </td>
                         <td>
@@ -186,7 +186,7 @@ interface expandedRows {
                         </td>
                         <td class="text-center">
                             <p-tag [value]="customer.status.toLowerCase()" [severity]="getSeverity(customer.status.toLowerCase())" styleClass="dark:!bg-surface-900" />
-                        </td>
+                        </td> -->
                     </tr>
                 </ng-template>
                 <ng-template #emptymessage>
