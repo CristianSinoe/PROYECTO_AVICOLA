@@ -1,0 +1,21 @@
+<br>
+<h2>Parvadas del granjero</h2>
+
+<p-table [value]="parvadas()" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>NOMBRE</th>
+      <th>DEESCRIPCION</th>
+      <th>NO. POLLOS</th>
+      <th>FECHA DE INGRESO</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-parvada>
+    <tr>
+      <td>{{ parvada.nombre }}</td>
+      <td>{{ parvada.descripcion }}</td>
+      <td>{{ parvada.numPollos }}</td>
+      <td>{{ parvada.fechaIngreso }}</td>
+    </tr>
+  </ng-template>
+</p-table>
