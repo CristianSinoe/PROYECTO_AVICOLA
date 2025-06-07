@@ -1,6 +1,7 @@
 package com.blacksystem.poultry_system.models.employees;
 
 
+import com.blacksystem.poultry_system.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,10 +34,9 @@ Long idEmployee;
     @Column(name="rfc_employee")
     String rfcEmployee;
     @Column(name="email_employee")
-    @NaturalId(mutable = true)
-    private String emailEmployee;
-    @Column(name= "password_employee")
-    private String passswordEmployee;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
     @Column(name="url_photo_id")
     private String urlPhotoId;
 }

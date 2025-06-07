@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("Encargado")
+@DiscriminatorValue("manager")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,4 +23,7 @@ public class Manager  extends Employee{
     private List<Zone> zones = new ArrayList<>();
 
 
+    public Manager() {
+
+    }
 }

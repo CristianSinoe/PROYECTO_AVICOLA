@@ -22,7 +22,7 @@ public class Zone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_zone")
     private Long idZone;
-    //Encargados
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", nullable = false)
     private Manager manager;
@@ -39,7 +39,7 @@ public class Zone {
     private City city;
     @Column(name="municipality_name")
     private String municipalityName;
-    //parvadas
+
     @OneToMany(mappedBy = "flock",
         cascade = CascadeType.ALL,
     orphanRemoval = true,

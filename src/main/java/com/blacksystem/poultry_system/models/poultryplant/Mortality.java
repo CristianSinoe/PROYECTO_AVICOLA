@@ -20,11 +20,11 @@ public class Mortality {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "id_mortality")
     private long idMortality;
-    //Kazeta
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "poultry_house_id")
     private PoultryHouse poultryHouse;
-    //Parvada
+
     @ManyToOne(optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name="Flock_id")
     private Flock flock;

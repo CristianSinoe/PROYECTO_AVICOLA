@@ -38,7 +38,5 @@ public class Flock {
              orphanRemoval = true,
             fetch = FetchType.LAZY
      )
- private List<Mortality> mortalities = new ArrayList<>();
-
-
+    private List<Mortality> mortalities = new ArrayList<>();
 }

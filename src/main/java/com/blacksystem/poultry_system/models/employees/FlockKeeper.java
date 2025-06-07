@@ -24,4 +24,7 @@ public class FlockKeeper extends Employee{
     private List<PoultryHouse> poultryHouses = new ArrayList<>();
 
 
+    public FlockKeeper() {
+
+    }
 }
