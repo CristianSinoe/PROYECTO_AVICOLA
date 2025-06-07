@@ -60,11 +60,12 @@ export class AppMenu {
                             icon: 'pi pi-fw pi-pencil',
                             routerLink: ['/pages/crud']
                         },
-                        {
-                            label: 'LISTA DE TRABAJADORES',
-                            icon: 'pi pi-fw pi-user',
-                            routerLink: ['/uikit/table']
-                        },
+                        // {
+                        //     label: 'LISTA DE TRABAJADORES',
+                        //     icon: 'pi pi-fw pi-user',
+                        //     routerLink: ['/uikit/table']
+                        // }
+                        // ,
                         {
                             label: 'ZONAS',
                             icon: 'pi pi-fw pi-user',
