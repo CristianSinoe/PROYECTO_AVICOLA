@@ -7,11 +7,18 @@ import { Notfound } from './app/pages/notfound/notfound';
 import { AuthGuard } from './app/guards/auth.guard';
 import { KazetaDetailComponent } from './app/pages/kazeta-detail/kazeta-detail.component';
 import { ParvadaDetailComponent } from './app/pages/parvada/parvada-detail/parvada-detail.component';
+import { RedirectComponent } from './app/pages/redirect/redirect.component'; // 👈 nuevo import
 
 export const appRoutes: Routes = [
-  // Rutas para administradores
+  // 👇 redireccionamiento dinámico desde /
   {
     path: '',
+    component: RedirectComponent
+  },
+
+  // Rutas para administradores
+  {
+    path: 'admin-area',
     component: AppLayout,
     canActivate: [AuthGuard],
     data: { roles: ['admin'] },
