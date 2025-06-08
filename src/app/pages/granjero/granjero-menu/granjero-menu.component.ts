@@ -32,7 +32,8 @@ export class GranjeroMenuComponent {
             icon: 'pi pi-map-marker',
             command: () => this.router.navigate([`/granjero/kazeta/${k.id}`])
           }))
-        }
+        },
+        
       ];
     });
   }
