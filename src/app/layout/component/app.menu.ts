@@ -33,7 +33,7 @@ export class AppMenu {
                 {
                     label: 'COMPONENTES',
                     items: [
-                        // { label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
+                        //{ label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
                         // { label: 'ENTRADA', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
                         // { label: 'BOTONES', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
                         { label: 'LISTA DE TRABAJADORES', icon: 'pi pi-fw pi-user', routerLink: ['/uikit/table'] },

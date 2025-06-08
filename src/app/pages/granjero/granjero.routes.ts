@@ -22,6 +22,11 @@ export const granjeroRoutes: Routes = [
       {
         path: 'parvadas',
         component: ParvadaComponent
+      },
+      {
+        path: 'kazeta/:id',
+        loadComponent: () =>
+          import('./kazeta-form/kazeta-form.component').then(m => m.KazetaFormComponent)
       }
       // ,
       // {
