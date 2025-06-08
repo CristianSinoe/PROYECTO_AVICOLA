@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class FlockKeeperManageService {
 
-    @Autowired
-    FlockeeperRepository flockeeperRepository;
+    private final FlockeeperRepository flockeeperRepository;
 
+    public FlockKeeperManageService(FlockeeperRepository flockeeperRepository) {
+        this.flockeeperRepository = flockeeperRepository;
+    }
     public String registerFlockKeeper(FlockKeeper flockKeeper) {
 
         flockeeperRepository.save(flockKeeper);

@@ -9,9 +9,11 @@ import java.util.Optional;
 @Service
 public class ManagerService {
 
-    @Autowired
-    private ManagerRepository managerRepo;
+    private final ManagerRepository managerRepo;
 
+    public ManagerService(ManagerRepository managerRepo) {
+        this.managerRepo = managerRepo;
+    }
     public Manager registerManager(Manager manager) {
         return managerRepo.save(manager);
     }

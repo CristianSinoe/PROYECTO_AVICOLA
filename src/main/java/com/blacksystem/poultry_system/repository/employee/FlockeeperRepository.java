@@ -16,5 +16,5 @@ public interface FlockeeperRepository extends JpaRepository<FlockKeeper, Long> {
     @Override
     Optional<FlockKeeper> findById(Long aLong);
 
-    default Optional<FlockKeeper> findByUserUsername(String username) { return null; };
+    Optional<FlockKeeper> findByUser_Username(String username);
 }

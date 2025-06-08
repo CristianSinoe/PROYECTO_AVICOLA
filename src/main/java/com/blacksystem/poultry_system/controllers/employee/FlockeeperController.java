@@ -17,15 +17,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/flockkeepers")
 public class FlockeeperController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder encoder;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder encoder;
-
+    public FlockeeperController(UserRepository userRepository,
+                                RoleRepository roleRepository,
+                                PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
+    }
 
 
 

@@ -17,18 +17,17 @@ import java.util.Optional;
 @Service
 public class AdministratorService {
 
-    @Autowired
-    private AdministratorRepository adminRepo;
+    private final AdministratorRepository adminRepo;
 
-    public Administrator crear(Administrator admin) {
+    public AdministratorService(AdministratorRepository adminRepo) {
+        this.adminRepo = adminRepo;
+    }
+    public Administrator registerEmployee(Administrator admin) {
         return adminRepo.save(admin);
     }
 
-    public Optional<Administrator> buscarPorId(Long id) {
-        return adminRepo.findById(id);
-    }
 
-    public Administrator actualizar(Long id, Administrator adminDetails) {
+    public Administrator updateDataFlcokkepeer(Long id, Administrator adminDetails) {
         Administrator admin = adminRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Admin no encontrado"));
 
