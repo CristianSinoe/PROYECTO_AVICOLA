@@ -36,7 +36,7 @@ export class AppMenu {
                         //{ label: 'DISEÑO DE FORMULARIO', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
                         // { label: 'ENTRADA', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
                         // { label: 'BOTONES', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
-                        { label: 'LISTA DE TRABAJADORES', icon: 'pi pi-fw pi-user', routerLink: ['/uikit/table'] },
+                        { label: 'LISTA DE TRABAJADORES', icon: 'pi pi-fw pi-user', routerLink: ['/admin-area/uikit/table'] },
                         // { label: 'LISTAS', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
                         // { label: 'ARBOL', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },
                         // { label: 'PANEL', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
@@ -58,7 +58,7 @@ export class AppMenu {
                         {
                             label: 'ADMINISTRACIÓN DE TRABAJADORES',
                             icon: 'pi pi-fw pi-pencil',
-                            routerLink: ['/pages/crud']
+                            routerLink: ['/admin-area/pages/crud']
                         },
                         // {
                         //     label: 'LISTA DE TRABAJADORES',
@@ -141,14 +141,15 @@ export class AppMenu {
                     label: '¿QUIÉNES SOMOS?',
                     items: [
                         {
-                            label: 'DOCUMENTOS',
+                            label: 'DOCUMENTACIÓN',
                             icon: 'pi pi-fw pi-book',
-                            routerLink: ['/documentation']
+                            url: 'https://github.com/CristianSinoe/PROYECTO_AVICOLA',
+                            target: '_blank'
                         },
                         {
                             label: 'MÁS INFORMACIÓN',
                             icon: 'pi pi-fw pi-github',
-                            url: 'https://youtu.be/RjOOYjuOYf0?si=ccyMddzZahku9ZWz',
+                            url: 'https://github.com/CristianSinoe/PROYECTO_AVICOLA',
                             target: '_blank'
                         }
                     ]
@@ -165,7 +166,7 @@ export class AppMenu {
             zonasMenu.push({
                 label: zona,
                 icon: 'pi pi-fw pi-map-marker',
-                command: () => this.router.navigate([`/zona/${encodeURIComponent(zona)}`])
+                command: () => this.router.navigate([`/admin-area/zona/${encodeURIComponent(zona)}`])
             });
         });
     
@@ -179,7 +180,7 @@ export class AppMenu {
             parvadasMenu.push({
                 label: zona,
                 icon: 'pi pi-fw pi-map-marker',
-                command: () => this.router.navigate([`/parvada/${encodeURIComponent(zona)}`])
+                command: () => this.router.navigate([`/admin-area/parvada/${encodeURIComponent(zona)}`])
             });
         });
     

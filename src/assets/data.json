@@ -431,7 +431,9 @@
     {
       "email": "encargado@example.com",
       "password": "encargado123",
-      "role": "encargado"
+      "role": "encargado",
+      "nombre": "Carlos Encargado",
+      "kazetasAsignadas": [1]
     }
   ],
   "kazetas": [

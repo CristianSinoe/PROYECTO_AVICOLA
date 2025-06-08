@@ -60,12 +60,12 @@ interface expandedRows {
             >
                 <ng-template #caption>
                     <div class="flex justify-between items-center flex-column sm:flex-row">
-                        <button pButton label="LIMPIAR FILTROS" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
-                        <p-iconfield iconPosition="left" class="ml-auto">
+                        <button pButton label="LIMPIAR" class="p-button-outlined mb-4" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                        <p-iconfield iconPosition="left" class="ml-1">
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
                             </p-inputicon>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt1, $event)" placeholder="BUSCAR POR PALABRA CLAVE..." />
+                            <input pInputText type="text" (input)="onGlobalFilter(dt1, $event)" placeholder="BUSCAR..." />
                         </p-iconfield>
                     </div>
                 </ng-template>

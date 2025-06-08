@@ -78,7 +78,7 @@ export class Login {
             this.router.navigate(['/granjero']);
             break;
           case 'encargado':
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/encargado']);
             break;
           default:
             this.router.navigate(['/']);

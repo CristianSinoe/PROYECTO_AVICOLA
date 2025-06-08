@@ -25,6 +25,12 @@ export class GranjeroMenuComponent {
 
       this.model = [
         {
+          label: 'INICIO',
+          items: [
+            { label: 'PANEL PRINCIPAL', icon: 'pi pi-fw pi-home', routerLink: ['/granjero'] }
+          ]
+        },
+        {
           label: 'KAZETAS',
           icon: 'pi pi-home',
           items: kazetasAsignadas.map((k: any) => ({
@@ -33,7 +39,23 @@ export class GranjeroMenuComponent {
             command: () => this.router.navigate([`/granjero/kazeta/${k.id}`])
           }))
         },
-        
+        {
+          label: 'AYUDA',
+          items: [
+            {
+              label: 'DOCUMENTACIÓN',
+              icon: 'pi pi-fw pi-book',
+              url: 'https://github.com/CristianSinoe/PROYECTO_AVICOLA',
+              target: '_blank'
+            },
+            {
+              label: 'SOPORTE',
+              icon: 'pi pi-fw pi-question-circle',
+              url: 'https://github.com/CristianSinoe/PROYECTO_AVICOLA',
+              target: '_blank'
+            }
+          ]
+        }
       ];
     });
   }

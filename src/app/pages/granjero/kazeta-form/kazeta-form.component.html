@@ -1,6 +1,6 @@
-<div class="flex justify-content-center p-4">
+<div class="flex center p-8">
 <p-toast></p-toast>
-  <p-card styleClass="w-full md:w-full">
+  <p-card styleClass="grid grid-cols-12 gap-4">
     <!-- TÍTULO -->
     <div class="text-2xl font-semibold text-center mt-2 mb-7">
       FORMULARIO DE REGISTRO
@@ -12,14 +12,17 @@
     </div>
 
     <!-- FORMULARIO -->
-    <div class="flex flex-column md:flex-row gap-5 mb-10">
+    <div class="grid p-4 gap-4">
       <p-floatlabel class="flex-1">
         <p-inputNumber inputId="alimento" [(ngModel)]="alimento" [useGrouping]="false" class="w-full" />
+        <br>
         <label for="alimento">ENTREGA DE ALIMENTO</label>
       </p-floatlabel>
-
+      
+      <br>
       <p-floatlabel class="flex-1">
         <p-inputNumber inputId="mortalidad" [(ngModel)]="mortalidad" [useGrouping]="false" class="w-full" />
+        <br>
         <label for="mortalidad">TASA DE MORTALIDAD</label>
       </p-floatlabel>
     </div>

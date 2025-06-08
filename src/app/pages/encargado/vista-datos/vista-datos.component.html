@@ -1,0 +1,20 @@
+<p-card header="VISTA GENERAL DE REGISTROS - {{ nombreEncargado }}">
+  <p-table [value]="resumen" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ZONA</th>
+        <th>KAZETA</th>
+        <th>ALIMENTO (KG)</th>
+        <th>MORTALIDAD</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>{{ row.zona }}</td>
+        <td>{{ row.kazeta }}</td>
+        <td>{{ row.alimento }}</td>
+        <td>{{ row.mortalidad }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
