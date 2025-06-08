@@ -149,7 +149,7 @@ interface ExportColumn {
         <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="AÑADIR UN TRABAJADOR" [modal]="true">
             <ng-template #content>
                 <div class="flex flex-col gap-6">
-                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
+                    <!-- <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" /> -->
                     <div>
                         <label for="name" class="block font-bold mb-3">NOMBRE</label>
                         <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
@@ -169,19 +169,19 @@ interface ExportColumn {
                         <span class="block font-bold mb-4">PUESTO</span>
                         <div class="grid grid-cols-12 gap-4">
                             <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
+                                <p-radiobutton id="category1" name="category" value="ADMINISTRADOR" [(ngModel)]="product.category" />
                                 <label for="category1">ADMINISTRADOR</label>
                             </div>
                             <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
+                                <p-radiobutton id="category2" name="category" value="GRANJERO" [(ngModel)]="product.category" />
                                 <label for="category2">GRANJERO</label>
                             </div>
                             <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
+                                <p-radiobutton id="category3" name="category" value="ENCARGADO" [(ngModel)]="product.category" />
                                 <label for="category3">ENCARGADO</label>
                             </div>
                             <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
+                                <p-radiobutton id="category4" name="category" value="MEDICO" [(ngModel)]="product.category" />
                                 <label for="category4">MEDICO</label>
                             </div>
                         </div>

@@ -69,6 +69,14 @@ export const appRoutes: Routes = [
     loadChildren: () =>
       import('./app/pages/granjero/granjero.routes').then(m => m.granjeroRoutes)
   },
+  {
+  path: 'encargado',
+  component: AppLayout,
+  canActivate: [AuthGuard],
+  data: { roles: ['encargado'] },
+  loadChildren: () =>
+    import('./app/pages/encargado/encargado.routes').then(m => m.encargadoRoutes)
+  },
 
   // Rutas públicas y otras rutas protegidas
   {
