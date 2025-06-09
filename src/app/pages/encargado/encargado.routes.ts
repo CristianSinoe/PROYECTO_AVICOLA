@@ -4,7 +4,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegistroAlimentoComponent } from './registro-alimento/registro-alimento.component';
 import { RegistroMortalidadComponent } from './registro-mortalidad/registro-mortalidad.component';
 import { VistaDatosComponent } from './vista-datos/vista-datos.component';
-// importa más vistas si las necesitas
+import { RegistroPesoComponent } from './registro-peso/registro-peso.component';
+import { RegistroConsumoComponent } from './registro-consumo/registro-consumo.component';
+
 
 export const encargadoRoutes: Routes = [
   {
@@ -26,18 +28,15 @@ export const encargadoRoutes: Routes = [
       {
         path: 'vista-datos',
         component: VistaDatosComponent
+      },
+      {
+        path: 'registro-peso',
+        component:RegistroPesoComponent
+      },
+      {
+        path: 'registro-consumo',
+        component:RegistroConsumoComponent
       }
-      // ,
-      // {
-      //   path: 'registro-peso',
-      //   loadComponent: () =>
-      //     import('./registro-peso/registro-peso.component').then(m => m.RegistroPesoComponent)
-      // },
-      // {
-      //   path: 'registro-consumo',
-      //   loadComponent: () =>
-      //     import('./registro-consumo/registro-consumo.component').then(m => m.RegistroConsumoComponent)
-      // }
     ]
   }
 ];
