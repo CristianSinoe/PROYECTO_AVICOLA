@@ -1,0 +1,462 @@
+{
+  "zonas": 4,
+  "kazetasPorZona": 4,
+  "embalajes": {
+    "total": 2100,
+    "percentage": 52
+  },
+  "empleados": {
+    "total": 28441,
+    "recientes": 600
+  },
+  "diagnosticos": {
+    "porRevisar": 152,
+    "revisados": 85
+  },
+  "promedioAlimento": {
+    "Z1": {
+      "labels": [
+        "KAZETA 1",
+        "KAZETA 2"
+      ],
+      "data": [
+        4000,
+        10000
+      ]
+    },
+    "Z2": {
+      "labels": [
+        "KAZETA A",
+        "KAZETA B",
+        "KAZETA C",
+        "KAZETA D",
+        "KAZETA E"
+      ],
+      "data": [
+        2100,
+        8400,
+        2400,
+        7500,
+        6200
+      ]
+    },
+    "Z3": {
+      "labels": [
+        "KAZETA ÚNICA"
+      ],
+      "data": [
+        4100
+      ]
+    },
+    "ORIZABA": {
+      "labels": [
+        "KZO",
+        "KAZETA 8"
+      ],
+      "data": [
+        4100,
+        8000
+      ]
+    },
+    "CORDOBA": {
+      "labels": [
+        "KZO",
+        "KAZETA 8"
+      ],
+      "data": [
+        4100,
+        8000
+      ]
+    }
+  },
+  "promedioMortalidad": {
+    "Z1": {
+      "labels": [
+        "KAZETA 1",
+        "KAZETA 2"
+      ],
+      "data": [
+        10,
+        15
+      ]
+    },
+    "Z2": {
+      "labels": [
+        "KAZETA A",
+        "KAZETA B",
+        "KAZETA C",
+        "KAZETA D",
+        "KAZETA E"
+      ],
+      "data": [
+        8,
+        12,
+        7,
+        10,
+        9
+      ]
+    },
+    "Z3": {
+      "labels": [
+        "KAZETA ÚNICA"
+      ],
+      "data": [
+        5
+      ]
+    },
+    "ORIZABA": {
+      "labels": [
+        "KZO",
+        "KAZETA 8"
+      ],
+      "data": [
+        4,
+        2
+      ]
+    },
+    "CORDOBA": {
+      "labels": [
+        "KZO",
+        "KAZETA 8"
+      ],
+      "data": [
+        4,
+        2
+      ]
+    }
+  },
+  "parvadas": {
+    "Z1": [
+      {
+        "nombre": "PARVADA 1",
+        "descripcion": "DESCRIPCION DE PARVADA 1",
+        "numPollos": 933,
+        "fechaIngreso": "2025-05-07"
+      },
+      {
+        "nombre": "PARVADA 2",
+        "descripcion": "DESCRIPCION DE PARVADA 2",
+        "numPollos": 271,
+        "fechaIngreso": "2025-05-07"
+      },
+      {
+        "nombre": "PARVADA 3",
+        "descripcion": "DESCRIPCION DE PARVADA 3",
+        "numPollos": 629,
+        "fechaIngreso": "2025-05-07"
+      },
+      {
+        "nombre": "PARVADA 4",
+        "descripcion": "DESCRIPCION DE PARVADA 4",
+        "numPollos": 588,
+        "fechaIngreso": "2025-05-07"
+      },
+      {
+        "nombre": "PARVADA 5",
+        "descripcion": "DESCRIPCION DE PARVADA  5",
+        "numPollos": 265,
+        "fechaIngreso": "2025-05-07"
+      }
+    ],
+    "Z2": [
+      {
+        "nombre": "PARVADA A",
+        "descripcion": "DESCRIPCION DE PARVADA A",
+        "numPollos": 440,
+        "fechaIngreso": "2025-05-07"
+      },
+      {
+        "nombre": "PARVADA B",
+        "descripcion": "DESCRIPCION DE PARVADA B",
+        "numPollos": 720,
+        "fechaIngreso": "2025-05-07"
+      }
+    ],
+    "Z3": [
+      {
+        "nombre": "PARVADA A1",
+        "descripcion": "DESCRIPCION DE PARVADA",
+        "numPollos": 380,
+        "fechaIngreso": "2025-05-07"
+      }
+    ],
+    "ORIZABA": [
+      {
+        "nombre": "PARVADA O1",
+        "descripcion": "DESCRIPCION DE PARVADA ",
+        "numPollos": 380,
+        "fechaIngreso": "2025-05-07"
+      }
+    ]
+  },
+  "kazetasParvada": {
+    "Z1": {
+      "Parvada 1": [
+        "KAZETA 1"
+      ],
+      "Parvada 2": [
+        "KAZETA 2"
+      ],
+      "Parvada 3": [
+        "KAZETA 1",
+        "KAZETA 2"
+      ],
+      "Parvada 4": [
+        "KAZETA 2"
+      ],
+      "Parvada 5": [
+        "KAZETA 1"
+      ]
+    },
+    "Z2": {
+      "Parvada A": [
+        "KAZETA A",
+        "KAZETA B"
+      ],
+      "Parvada B": [
+        "KAZETA C",
+        "KAZETA D"
+      ]
+    },
+    "Z3": {
+      "Parvada Única": [
+        "KAZETA ÚNICA"
+      ]
+    },
+    "ORIZABA": {
+      "Parvada Única": [
+        "KZO"
+      ]
+    }
+  },
+  "registrosAlimento": {
+    "Z1": {
+      "KAZETA 1": [
+        {
+          "fecha": "2025-05-02",
+          "boleta": "A01",
+          "cantidad": 30,
+          "tipo": "Maíz"
+        },
+        {
+          "fecha": "2025-05-03",
+          "boleta": "A02",
+          "cantidad": 50,
+          "tipo": "Sorgo"
+        }
+      ],
+      "KAZETA 2": [
+        {
+          "fecha": "2025-05-04",
+          "boleta": "A03",
+          "cantidad": 40,
+          "tipo": "Trigo"
+        }
+      ]
+    },
+    "Z2": {
+      "KAZETA A": [
+        {
+          "fecha": "2025-05-02",
+          "boleta": "B01",
+          "cantidad": 60,
+          "tipo": "Maíz"
+        }
+      ],
+      "KAZETA B": [
+        {
+          "fecha": "2025-05-03",
+          "boleta": "B02",
+          "cantidad": 80,
+          "tipo": "Sorgo"
+        }
+      ],
+      "KAZETA C": [],
+      "KAZETA D": [],
+      "KAZETA E": []
+    },
+    "Z3": {
+      "KAZETA ÚNICA": [
+        {
+          "fecha": "2025-05-01",
+          "boleta": "C01",
+          "cantidad": 45,
+          "tipo": "Maíz"
+        }
+      ]
+    },
+    "ORIZABA": {
+      "KZO": [
+        {
+          "fecha": "2025-05-05",
+          "boleta": "D01",
+          "cantidad": 70,
+          "tipo": "Maíz"
+        }
+      ],
+      "KAZETA 8": [
+        {
+          "fecha": "2025-05-06",
+          "boleta": "D02",
+          "cantidad": 90,
+          "tipo": "Sorgo"
+        }
+      ]
+    }
+  },
+  "registrosMortalidad": {
+    "Z1": {
+      "KAZETA 1": [
+        {
+          "fecha": "2025-05-02",
+          "cantidad": 5
+        },
+        {
+          "fecha": "2025-05-03",
+          "cantidad": 10
+        }
+      ],
+      "KAZETA 2": [
+        {
+          "fecha": "2025-05-04",
+          "cantidad": 8
+        }
+      ]
+    },
+    "Z2": {
+      "KAZETA A": [
+        {
+          "fecha": "2025-05-02",
+          "cantidad": 6
+        }
+      ],
+      "KAZETA B": [
+        {
+          "fecha": "2025-05-03",
+          "cantidad": 4
+        }
+      ],
+      "KAZETA C": [],
+      "KAZETA D": [],
+      "KAZETA E": []
+    },
+    "Z3": {
+      "KAZETA ÚNICA": [
+        {
+          "fecha": "2025-05-01",
+          "cantidad": 3
+        }
+      ]
+    },
+    "ORIZABA": {
+      "KZO": [
+        {
+          "fecha": "2025-05-05",
+          "cantidad": 2
+        }
+      ],
+      "KAZETA 8": [
+        {
+          "fecha": "2025-05-06",
+          "cantidad": 1
+        }
+      ]
+    }
+  },
+  "notificaciones": {
+    "hoy": [
+      {
+        "text": "PEPE RUIZ HIZO UN DIAGNOSTICO A LA KAZETA 3",
+        "color": "blue",
+        "icon": "pi pi-dollar",
+        "fechaHora": "2025-04-29 03:30"
+      },
+      {
+        "text": "SE GENERARON REPORTES CON ESTADISTICAS DE LOS MESES ENERO Y FEBRERO SOBRE MORTALIDAD",
+        "color": "orange",
+        "icon": "pi pi-comment",
+        "fechaHora": "2025-04-29 04:15"
+      }
+    ],
+    "ayer": [
+      {
+        "text": "PEPITO",
+        "color": "blue",
+        "icon": "pi pi-dollar",
+        "fechaHora": "2025-04-28 15:50"
+      },
+      {
+        "text": "FERNANDO",
+        "color": "pink",
+        "icon": "pi pi-question",
+        "fechaHora": "2025-04-28 16:10"
+      }
+    ],
+    "semanaPasada": [
+      {
+        "text": "HUBO UN INCREMENTO DE ALIMENTO DEL 25%",
+        "color": "green",
+        "icon": "pi pi-arrow-up",
+        "fechaHora": "2025-04-24 11:00"
+      },
+      {
+        "text": "12 TRABAJADORES NUEVOS SE UNIERON",
+        "color": "purple",
+        "icon": "pi pi-heart",
+        "fechaHora": "2025-04-23 15:20"
+      }
+    ]
+  },
+  "usuarios": [
+    {
+      "email": "admin@example.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "email": "medico@example.com",
+      "password": "medico123",
+      "role": "medico"
+    },
+    {
+      "email": "granjero@example.com",
+      "password": "granjero123",
+      "role": "granjero",
+      "nombre": "Leonardo Montes",
+      "kazetasAsignadas": [
+        1,
+        2
+      ]
+    },
+    {
+      "email": "encargado@example.com",
+      "password": "encargado123",
+      "role": "encargado",
+      "nombre": "Carlos Encargado",
+      "kazetasAsignadas": [1]
+    }
+  ],
+  "kazetas": [
+    {
+      "id": 1,
+      "nombre": "KAZETA 1",
+      "zona": "Z1",
+      "ubicacion": "ORIZABA",
+      "folio": "0584156"
+    },
+    {
+      "id": 2,
+      "nombre": "KAZETA 2",
+      "zona": "Z1",
+      "ubicacion": "ORIZABA",
+      "folio": "0584157"
+    },
+    {
+      "id": 3,
+      "nombre": "KAZETA A",
+      "zona": "Z2",
+      "ubicacion": "CORDOBA",
+      "folio": "0584158"
+    }
+  ]
+}
