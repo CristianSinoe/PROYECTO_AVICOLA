@@ -97,7 +97,7 @@ export class KazetaFormComponent implements OnInit {
     this.messageService.add({
       severity: 'success',
       summary: 'ÉXITO',
-      detail: `DATOS GUARDADPS PARA: ${this.kazeta?.nombre}`
+      detail: `DATOS GUARDADOS PARA: ${this.kazeta?.nombre}`
     });
     this.loading = false;
     this.editMode = false;
