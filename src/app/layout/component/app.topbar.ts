@@ -44,7 +44,7 @@ import { AuthService } from '../../services/auth.service';
 
                 <!-- Otros botones -->
                 <button type="button" class="layout-topbar-action" (click)="onLogout()">
-                    <i class="pi pi-user"></i>
+                    <i class="pi pi-sign-out"></i>
                     <span>CERRAR SESIÓN</span>
                 </button>
 
