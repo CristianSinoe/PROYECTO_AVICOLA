@@ -45,7 +45,7 @@ export class EncargadoMenuComponent {
             },
             {
               label: 'REGISTRO DE PESO',
-              icon: 'pi pi-weight',
+              icon: 'pi pi-chart-bar',
               routerLink: ['/encargado/registro-peso']
             },
             {

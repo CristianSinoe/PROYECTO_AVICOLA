@@ -27,54 +27,74 @@ import { DataService } from '../../../services/data.service';
   styleUrls: ['./registro-consumo.component.scss'],
   providers: [MessageService]
 })
-export class RegistroConsumoComponent implements OnInit {
+ export class RegistroConsumoComponent implements OnInit {
   zonas: string[] = [];
-  kazetas: string[] = [];
-  selectedZona: string = '';
-  selectedKazeta: string = '';
-  fecha: Date | undefined;
-  cantidad: number | undefined;
+  kazetas: { label: string; value: string }[] = [];
+  selectedZona: string | null = null;
+  selectedKazeta: string | null = null;
+  fecha: Date = new Date();
+  cantidad: number = 0;
   loading = false;
+  modoEdicion = false;
   nombreEncargado = '';
+
+  private usuario: any;
+  private todasKazetas: any[] = [];
 
   constructor(private dataService: DataService, private messageService: MessageService) {}
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.dataService.getData().subscribe(data => {
-      const usuario = data.usuarios.find((u: any) => u.email === user.email);
-      this.nombreEncargado = usuario?.nombre || user.email;
-      this.zonas = Object.keys(data.registrosAlimento);
+    this.dataService.getData().subscribe((data: any) => {
+      this.usuario = data.usuarios.find((u: any) => u.email === user.email);
+      this.nombreEncargado = this.usuario?.nombre || user.email;
+
+      this.todasKazetas = data.kazetas.filter((k: any) =>
+        this.usuario.kazetasAsignadas?.includes(k.id)
+      );
+
+      const zonasSet = new Set<string>();
+      this.todasKazetas.forEach((k: any) => zonasSet.add(k.zona));
+      this.zonas = Array.from(zonasSet);
     });
   }
 
-  onZonaChange() {
-    this.selectedKazeta = '';
-    this.kazetas = [];
-    this.dataService.getData().subscribe(data => {
-      if (data.registrosAlimento[this.selectedZona]) {
-        this.kazetas = Object.keys(data.registrosAlimento[this.selectedZona]);
-      }
-    });
+  onZonaChange(): void {
+    const filtradas = this.todasKazetas.filter((k: any) => k.zona === this.selectedZona);
+    this.kazetas = filtradas.map((k: any) => ({
+      label: k.nombre,
+      value: k.nombre
+    }));
+    this.selectedKazeta = null;
   }
 
-  guardar() {
+  toggleModoEdicion(): void {
+    if (this.modoEdicion) {
+      this.guardar();
+    } else {
+      this.modoEdicion = true;
+    }
+  }
+
+  guardar(): void {
     if (!this.selectedZona || !this.selectedKazeta || !this.fecha || !this.cantidad) {
-      this.messageService.add({ severity: 'error', summary: 'Campos incompletos', detail: 'Llena todos los campos.' });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'CAMPOS INCOMPLETOS',
+        detail: 'LLENA TODOS LOS CAMPOS'
+      });
       return;
     }
+
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
+      this.modoEdicion = false;
       this.messageService.add({
         severity: 'success',
-        summary: 'Registro guardado',
-        detail: `Zona: ${this.selectedZona}, Kazeta: ${this.selectedKazeta}, Cantidad: ${this.cantidad}`
+        summary: 'REGISTRO GUARDADO',
+        detail: `ZONA: ${this.selectedZona}, KAZETA: ${this.selectedKazeta}, CANTIDAD: ${this.cantidad}`
       });
-      this.selectedZona = '';
-      this.selectedKazeta = '';
-      this.fecha = undefined;
-      this.cantidad = undefined;
     }, 1000);
   }
 }

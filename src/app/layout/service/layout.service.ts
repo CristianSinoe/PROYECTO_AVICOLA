@@ -30,7 +30,7 @@ export class LayoutService {
         preset: 'Lara',
         primary: 'emerald',
         surface: null,
-        darkTheme: true,
+        darkTheme: false,
         menuMode: 'static'
     };
 

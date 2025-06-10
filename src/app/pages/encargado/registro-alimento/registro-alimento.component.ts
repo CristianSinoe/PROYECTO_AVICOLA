@@ -30,6 +30,7 @@ import { DataService } from '../../../services/data.service';
 export class RegistroAlimentoComponent {
   zonas: string[] = [];
   kazetas: { label: string; value: string }[] = [];
+  modoEdicion = false; 
 
   selectedZona: string | null = null;
   selectedKazeta: string | null = null;
@@ -69,12 +70,28 @@ export class RegistroAlimentoComponent {
     this.selectedKazeta = null;
   }
 
-  guardar(): void {
+  guardar() {
+    if (!this.modoEdicion) {
+      this.modoEdicion = true;
+      return;
+    }
+
+    if (!this.selectedZona || !this.selectedKazeta || !this.fecha || !this.cantidad) {
+      this.messageService.add({ severity: 'error', summary: 'CAMPOS INCOMPLETOS', detail: 'LLENA TODOS LOS CAMPOS' });
+      return;
+    }
+
     this.loading = true;
+
     setTimeout(() => {
       this.loading = false;
-      this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Registro exitoso' });
-    }, 1500);
+      this.modoEdicion = false;
+      this.messageService.add({
+        severity: 'success',
+        summary: 'REGISTRO GUARDADO',
+        detail: `ZONA: ${this.selectedZona}, KAZETA: ${this.selectedKazeta}, CANTIDAD: ${this.cantidad}`
+      });
+    }, 1000);
   }
 }
 

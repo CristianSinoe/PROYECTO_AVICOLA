@@ -423,16 +423,13 @@
       "password": "granjero123",
       "role": "granjero",
       "nombre": "Leonardo Montes",
-      "kazetasAsignadas": [
-        1,
-        2
-      ]
+      "kazetasAsignadas": [1,2]
     },
     {
       "email": "encargado@example.com",
       "password": "encargado123",
       "role": "encargado",
-      "nombre": "Carlos Encargado",
+      "nombre": "CARLOS PEREZ",
       "kazetasAsignadas": [1]
     }
   ],

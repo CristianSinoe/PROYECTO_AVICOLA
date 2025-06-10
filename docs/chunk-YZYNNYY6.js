@@ -1,0 +1,1 @@
+import{a}from"./chunk-7TGGASDL.js";import"./chunk-FK6H3RFT.js";import"./chunk-PH6CECEN.js";import"./chunk-F3B4DRXO.js";import"./chunk-EDRFJHPT.js";import"./chunk-3FZEPC3C.js";import"./chunk-SD274BSR.js";import"./chunk-GLSPFAUM.js";import"./chunk-EXJJF4RX.js";import"./chunk-C37TLAZK.js";import"./chunk-AN2PFFFI.js";import"./chunk-EQDQRRRY.js";export{a as KazetaDetailComponent};

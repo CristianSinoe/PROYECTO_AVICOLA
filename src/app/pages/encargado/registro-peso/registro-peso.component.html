@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+
 <div class="flex justify-content-center mt-4">
   <div class="flex center p-8">
     <p-card>
@@ -10,34 +11,62 @@
       </ng-template>
 
       <div class="grid p-4 gap-4">
+        <!-- Zona -->
         <div class="text-left mb-2 text-lg">
-          <label for="zona">Zona: </label>
+          <label for="zona">ZONA: </label>
           <p-dropdown
             [options]="zonas"
             [(ngModel)]="selectedZona"
-            placeholder="Selecciona una zona"
-            (onChange)="onZonaChange()">
-          </p-dropdown>
+            placeholder="SELECCIONA UNA ZONA"
+            (onChange)="onZonaChange()"
+            [disabled]="!modoEdicion"
+          ></p-dropdown>
         </div>
+
+        <!-- Kazeta -->
         <div class="text-left mb-2 text-lg">
-          <label for="kazeta">Kazeta: </label>
+          <label for="kazeta">KAZETA: </label>
           <p-dropdown
             [options]="kazetas"
             [(ngModel)]="selectedKazeta"
-            placeholder="Selecciona una kazeta"
-            [disabled]="!selectedZona">
-          </p-dropdown>
+            placeholder="SELECCIONA UNA KAZETA"
+            [disabled]="!modoEdicion || !selectedZona"
+          ></p-dropdown>
         </div>
+
+        <!-- Fecha -->
         <div class="text-left mb-2 text-lg">
-          <label for="fecha">Fecha: </label>
-          <p-calendar [(ngModel)]="fecha" dateFormat="dd/mm/yy" showIcon class="w-full"></p-calendar>
+          <label for="fecha">FECHA: </label>
+          <p-calendar
+            [(ngModel)]="fecha"
+            dateFormat="dd/mm/yy"
+            showIcon
+            class="w-full"
+            [disabled]="!modoEdicion"
+          ></p-calendar>
         </div>
+
+        <!-- Cantidad -->
         <div class="text-left mb-2 text-lg">
-          <label for="cantidad" class="whitespace-nowrap">Cantidad:</label>
-          <p-inputNumber [(ngModel)]="cantidad" [min]="0" showButtons inputId="cantidad"></p-inputNumber>
+          <label for="cantidad" class="whitespace-nowrap">CANTIDAD:</label>
+          <p-inputNumber
+            [(ngModel)]="cantidad"
+            [min]="0"
+            showButtons
+            inputId="cantidad"
+            [disabled]="!modoEdicion"
+          ></p-inputNumber>
         </div>
+
+        <!-- Botón Editar / Guardar -->
         <div class="text-right mt-4">
-          <button pButton type="button" label="Guardar" [loading]="loading" (click)="guardar()"></button>
+          <button
+            pButton
+            type="button"
+            [label]="modoEdicion ? 'GUARDAR' : 'EDITAR'"
+            [loading]="loading"
+            (click)="toggleModoEdicion()"
+          ></button>
         </div>
       </div>
     </p-card>
