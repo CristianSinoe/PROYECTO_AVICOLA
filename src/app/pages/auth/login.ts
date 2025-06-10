@@ -46,7 +46,7 @@ import { CommonModule } from '@angular/common';
                     <p-checkbox [(ngModel)]="checked" id="rememberme1" binary class="mr-2 text-sm sm:text-base"></p-checkbox>
                     <label for="rememberme1" class="text-sm sm:text-base">RECORDARME</label>
                   </div>
-                  <span class="font-medium text-sm sm:text-base cursor-pointer text-primary">¿OLVIDASTE TU CONTRASEÑA?</span>
+                  <!-- <span class="font-medium text-sm sm:text-base cursor-pointer text-primary">¿OLVIDASTE TU CONTRASEÑA?</span> -->
                 </div>
                 <p-button label="INICIAR SESION" styleClass="w-full" (onClick)="onLogin()"></p-button>
               </div>
