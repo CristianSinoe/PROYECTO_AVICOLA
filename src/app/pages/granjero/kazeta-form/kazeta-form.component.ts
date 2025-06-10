@@ -23,7 +23,6 @@ import { DataService } from '../../../services/data.service';
     FloatLabelModule,
     ButtonModule,
     CardModule,
-    CardModule,
     ToastModule
   ],
   providers: [MessageService],
@@ -35,51 +34,73 @@ export class KazetaFormComponent implements OnInit {
   kazeta: any = null;
   alimento: number | null = null;
   mortalidad: number | null = null;
-  editando: boolean = false;
-  loading: boolean = false;
+  loading = false;
+  editMode = false;
 
-  constructor(private route: ActivatedRoute, private dataService: DataService, private messageService: MessageService) {}
-  
+  constructor(
+    private route: ActivatedRoute,
+    private dataService: DataService,
+    private messageService: MessageService
+  ) {}
+
   ngOnInit(): void {
-  this.route.params.subscribe(params => {
-    this.kazetaId = +params['id'];
-    this.dataService.getData().subscribe(data => {
-      this.cargarKazeta(data);
+    this.route.params.subscribe(params => {
+      this.kazetaId = +params['id'];
+      this.dataService.getData().subscribe(data => {
+        this.cargarKazeta(data);
+      });
     });
-  });
-}
+  }
 
-private cargarKazeta(data: any): void {
-  const usuario = JSON.parse(localStorage.getItem('user') || '{}');
-  const userInfo = data.usuarios.find((u: any) => u.email === usuario.email);
-  const kazeta = data.kazetas.find((k: any) => k.id === this.kazetaId);
+  private cargarKazeta(data: any): void {
+    const usuario = JSON.parse(localStorage.getItem('user') || '{}');
+    const kazeta = data.kazetas.find((k: any) => k.id === this.kazetaId);
+    this.kazeta = kazeta;
 
-  this.kazeta = kazeta;
+    const zona = kazeta.zona;
+    const nombre = kazeta.nombre;
 
-  const zona = kazeta.zona;
-  const nombre = kazeta.nombre;
+    const alimentoData = data.registrosAlimento?.[zona]?.[nombre]?.at(-1);
+    const mortalidadData = data.registrosMortalidad?.[zona]?.[nombre]?.at(-1);
 
-  const alimentoData = data.registrosAlimento?.[zona]?.[nombre]?.at(-1);
-  const mortalidadData = data.registrosMortalidad?.[zona]?.[nombre]?.at(-1);
+    this.alimento = alimentoData?.cantidad || null;
+    this.mortalidad = mortalidadData?.cantidad || null;
 
-  this.alimento = alimentoData?.cantidad || null;
-  this.mortalidad = mortalidadData?.cantidad || null;
-  this.editando = !!(alimentoData || mortalidadData);
-}
+    this.editMode = false;
+  }
 
-
+  toggleEditMode() {
+    if (this.editMode) {
+      this.guardar();
+    }
+    this.editMode = !this.editMode;
+  }
 
   guardar() {
+  if (
+    !this.kazeta?.zona?.trim() ||
+    !this.kazeta?.nombre?.trim() ||
+    this.alimento === null || this.alimento < 0 ||
+    this.mortalidad === null || this.mortalidad < 0
+  ) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'CAMPOS INVÁLIDOS',
+      detail: 'LLENA TODOS LOS CAMPOS'
+    });
+    return;
+  }
+
   this.loading = true;
 
   setTimeout(() => {
     this.messageService.add({
       severity: 'success',
       summary: 'ÉXITO',
-      detail: `DATOS GUARDADOS PARA ${this.kazeta?.nombre}`,
-      life: 3000
+      detail: `DATOS GUARDADPS PARA: ${this.kazeta?.nombre}`
     });
     this.loading = false;
+    this.editMode = false;
   }, 1000);
 }
 }

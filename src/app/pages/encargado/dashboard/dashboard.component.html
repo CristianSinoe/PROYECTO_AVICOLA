@@ -1,7 +1,7 @@
 <div class="grid p-4 gap-4">
   <!-- Tarjeta de bienvenida -->
   <div class="col-12 md:col-6">
-    <p-card header="BIENVENIDO, ENCARGADO" subheader="PANEL DE CONTROL">
+    <p-card [header]="'BIENVENIDO, ' + nombreEncargado.toUpperCase()" subheader="PANEL DE ENCARGADO">
       <p>ACCEDA A LAS FUNCIONES DISPONIBLES PARA SU ROL EN EL SISTEMA.</p>
     </p-card>
   </div>

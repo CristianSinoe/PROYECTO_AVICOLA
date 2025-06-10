@@ -1,44 +1,52 @@
-<div class="flex center p-8">
 <p-toast></p-toast>
-  <p-card styleClass="grid grid-cols-12 gap-4">
-    <!-- TÍTULO -->
-    <div class="text-2xl font-semibold text-center mt-2 mb-7">
-      FORMULARIO DE REGISTRO
-    </div>
 
-    <!-- SUBTÍTULO -->
-    <div class="text-center mb-10 text-lg font-bold">
-      NÚMERO DE KAZETA:  <span class="text-primary"> {{ kazeta?.nombre }}</span>
-    </div>
+<div class="flex justify-content-center mt-4">
+  <div class="flex center p-8">
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="flex flex-col text-center">
+          <span class="text-2xl font-semibold mt-2 mb-3">DETALLE DE KAZETA</span>
+          <span class="text-lg text-color-secondary">{{ kazeta?.nombre || 'CARGANDO...' }}</span>
+        </div>
+      </ng-template>
 
-    <!-- FORMULARIO -->
-    <div class="grid p-4 gap-4">
-      <p-floatlabel class="flex-1">
-        <p-inputNumber inputId="alimento" [(ngModel)]="alimento" [useGrouping]="false" class="w-full" />
-        <br>
-        <label for="alimento">ENTREGA DE ALIMENTO</label>
-      </p-floatlabel>
-      
-      <br>
-      <p-floatlabel class="flex-1">
-        <p-inputNumber inputId="mortalidad" [(ngModel)]="mortalidad" [useGrouping]="false" class="w-full" />
-        <br>
-        <label for="mortalidad">TASA DE MORTALIDAD</label>
-      </p-floatlabel>
-    </div>
+      <div class="grid p-4 gap-4">
+        <!-- Zona -->
+        <div class="field col-12 md:col-6">
+          <label for="zona">ZONA: </label>
+          <input id="zona" type="text" pInputText [(ngModel)]="kazeta.zona" [disabled]="!editMode" />
+        </div>
 
-    <!-- BOTÓN -->
-     <div class="text-right mt-4">
-        <button
-        pButton
-        type="button"
-        [label]="editando ? 'GUARDAR' : 'EDITAR'"
-        icon="pi pi-save"
-        class="p-button-success w-full md:w-auto"
-        [loading]="loading"
-        [disabled]="loading"
-        (click)="guardar()"
-        ></button>
-    </div>
-</p-card>
+        <!-- Nombre -->
+        <div class="field col-12 md:col-6">
+          <label for="nombre">NOMBRE</label>
+          <input id="nombre" type="text" pInputText [(ngModel)]="kazeta.nombre" [disabled]="!editMode" />
+        </div>
+
+        <!-- Alimento -->
+        <div class="field col-12 md:col-6">
+          <label for="alimento">Último registro de alimento (kg)</label>
+          <input id="alimento" type="number" pInputText [(ngModel)]="alimento" [disabled]="!editMode" />
+        </div>
+
+        <!-- Mortalidad -->
+        <div class="field col-12 md:col-6">
+          <label for="mortalidad">Último registro de mortalidad</label>
+          <input id="mortalidad" type="number" pInputText [(ngModel)]="mortalidad" [disabled]="!editMode" />
+        </div>
+
+        <!-- Botón Editar/Guardar -->
+        <div class="text-right col-12">
+          <button
+            pButton
+            type="button"
+            [label]="editMode ? 'GUARDAR' : 'EDITAR'"
+            icon="pi pi-pencil"
+            (click)="toggleEditMode()"
+            [loading]="loading">
+          </button>
+        </div>
+      </div>
+    </p-card>
+  </div>
 </div>
