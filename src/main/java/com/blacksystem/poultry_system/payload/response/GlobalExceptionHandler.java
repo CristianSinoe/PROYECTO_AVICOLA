@@ -21,5 +21,5 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    // Add more handlers for other exception types as needed
+
 }

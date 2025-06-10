@@ -12,4 +12,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Administrator extends Employee{
+
 }

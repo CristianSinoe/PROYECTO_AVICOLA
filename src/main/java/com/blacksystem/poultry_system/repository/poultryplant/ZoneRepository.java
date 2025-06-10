@@ -11,7 +11,11 @@ import com.blacksystem.poultry_system.models.poultryplant.Zone;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 public interface ZoneRepository extends CrudRepository<Zone, Integer> {
+
+    public ArrayList<Zone> findAll();
 
 }

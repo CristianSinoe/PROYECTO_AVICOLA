@@ -16,11 +16,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class FlockeeperRequest {
-    // ——— Campos de login ———
+public class FlockKeeperRequest {
+    // ——— data for user ———
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
@@ -31,7 +33,10 @@ public class FlockeeperRequest {
     @NotBlank @Size(min = 6, max = 40)
     private String password;
 
-    // ——— Campos de Employee ———
+    @NotBlank
+    private Set<String> role;
+
+    // ——— data for Employee ———
     @NotBlank
     private String nameEmployee;
 
@@ -44,14 +49,11 @@ public class FlockeeperRequest {
     private LocalDate birthDate;
 
     @NotBlank
-    private String rfcEmployee;
-
-    @NotBlank @Size(max = 50) @Email
-    private String emailEmployee;
-
-    @NotBlank @Size(min = 6, max = 40)
-    private String employeePassword;
-
     private String urlPhotoId;
+
+    @NotBlank
+    @Size(min = 12, max = 13)
+    @NotNull
+    private String rfcEmployee;
 
 }

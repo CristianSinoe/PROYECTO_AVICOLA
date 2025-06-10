@@ -7,13 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.NaturalId;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "tipo_trabajador", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,10 +29,9 @@ Long idEmployee;
     @Column(name="middle_name_employee")
     String middleName;
     @Column(name="birth_date")
-    Date birthDate;
+    LocalDate birthDate;
     @Column(name="rfc_employee")
     String rfcEmployee;
-    @Column(name="email_employee")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;

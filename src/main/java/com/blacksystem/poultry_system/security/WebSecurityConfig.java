@@ -9,8 +9,8 @@ package com.blacksystem.poultry_system.security;
 
 import com.blacksystem.poultry_system.security.jwt.AuthEntryPointJwt;
 import com.blacksystem.poultry_system.security.jwt.AuthTokenFilter;
-import com.blacksystem.poultry_system.security.jwt.JwtUtils;
 import com.blacksystem.poultry_system.security.services.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,22 +30,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 // jsr250Enabled = true,
 // prePostEnabled = true) // by default
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
-    private final UserDetailsServiceImpl userDetailsService;
-    private final AuthEntryPointJwt unauthorizedHandler;
-    private final JwtUtils jwtUtils;
-
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService,
-                             AuthEntryPointJwt unauthorizedHandler,
-                             JwtUtils jwtUtils) {
-        this.userDetailsService = userDetailsService;
-        this.unauthorizedHandler = unauthorizedHandler;
-        this.jwtUtils = jwtUtils;
-    }
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter(jwtUtils, userDetailsService);
+        return new AuthTokenFilter();
     }
 
     @Bean
@@ -76,6 +69,10 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
+                                .requestMatchers("/api/flockkeeper/**").permitAll()
+                                .requestMatchers("/api/auth/**", "/api/signup").permitAll()
+                                .requestMatchers("/error").permitAll()
+                                //.requestMatchers("/api/test/**").permitAll()
                                 .anyRequest().authenticated()
                 );
             //.requestMatchers("/error").permitAll() antes del ".anyRequest().authenticated()" y permite ver todos los errores

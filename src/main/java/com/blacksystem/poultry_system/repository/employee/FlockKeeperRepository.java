@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface FlockeeperRepository extends JpaRepository<FlockKeeper, Long> {
+public interface FlockKeeperRepository extends JpaRepository<FlockKeeper, Long> {
     @Override
     Optional<FlockKeeper> findById(Long aLong);
 
