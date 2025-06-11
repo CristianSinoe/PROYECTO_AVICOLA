@@ -12,12 +12,13 @@ import com.blacksystem.poultry_system.models.Role;
 import com.blacksystem.poultry_system.models.User;
 import com.blacksystem.poultry_system.models.employees.FlockKeeper;
 import com.blacksystem.poultry_system.models.poultryplant.Zone;
-import com.blacksystem.poultry_system.payload.ResponseGlobal;
 import com.blacksystem.poultry_system.payload.employee.FlockKeeperRequest;
 import com.blacksystem.poultry_system.repository.RoleRepository;
 import com.blacksystem.poultry_system.repository.UserRepository;
 import com.blacksystem.poultry_system.repository.employee.AdministratorRepository;
 import com.blacksystem.poultry_system.repository.employee.FlockKeeperRepository;
+import com.blacksystem.poultry_system.repository.poultryplant.ZoneRepository;
+import com.blacksystem.poultry_system.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,96 +36,104 @@ public class AdministratorService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MessageService messageService;
 
-    public AdministratorService(AdministratorRepository adminRepo, FlockKeeperRepository flockKeeperRepository, UserRepository userRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+
+    public AdministratorService(
+            AdministratorRepository adminRepo,
+            FlockKeeperRepository flockKeeperRepository,
+            UserRepository userRepo,
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder,
+            MessageService messageService
+    ) {
         this.administratorRepository = adminRepo;
         this.flockKeeperRepository = flockKeeperRepository;
         this.userRepository = userRepo;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.messageService = messageService;
     }
 
+    public ResponseEntity<String> createFlockKeeper(FlockKeeperRequest request) {
+        try {
+            User user = new User();
+            user.setUsername(request.getUsername());
+            user.setEmail(request.getEmail());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-    public ResponseEntity<ResponseGlobal<FlockKeeper>> flockKepeer(FlockKeeperRequest request) {
+            Role role = roleRepository.findByName(ERole.ROLE_FLOCKEERPER)
+                    .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
 
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+            Set<Role> roles = new HashSet<>();
+            roles.add(role);
+            user.setRoles(roles);
 
+            userRepository.save(user);
 
-        Role role = roleRepository.findByName(ERole.ROLE_FLOCKEERPER)
-                .orElseThrow(() -> new RuntimeException("Error: Rol no encontrado."));
+            FlockKeeper flockKeeper = new FlockKeeper();
+            flockKeeper.setNameEmployee(request.getNameEmployee());
+            flockKeeper.setLastName(request.getLastName());
+            flockKeeper.setMiddleName(request.getMiddleName());
+            flockKeeper.setBirthDate(request.getBirthDate());
+            flockKeeper.setRfcEmployee(request.getRfcEmployee());
+            flockKeeper.setUrlPhotoId(request.getUrlPhotoId());
+            flockKeeper.setUser(user);
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
+            flockKeeperRepository.save(flockKeeper);
 
-        userRepository.save(user);
-
-        // Crear FlockKeeper
-        FlockKeeper flockKeeper = new FlockKeeper();
-        flockKeeper.setNameEmployee(request.getNameEmployee());
-        flockKeeper.setLastName(request.getLastName());
-        flockKeeper.setMiddleName(request.getMiddleName());
-        flockKeeper.setBirthDate(request.getBirthDate());
-        flockKeeper.setRfcEmployee(request.getRfcEmployee());
-        flockKeeper.setUrlPhotoId(request.getUrlPhotoId());
-        flockKeeper.setUser(user);
-
-        FlockKeeper saved = flockKeeperRepository.save(flockKeeper);
-
-        ResponseGlobal<FlockKeeper> response = ResponseGlobal.created("FlockKeeper creado con éxito", saved);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
-
-
-
-
-    public ResponseEntity<ResponseGlobal<FlockKeeper>> updateDataFlockKeeper(Long id, FlockKeeperRequest request) {
-        Optional<FlockKeeper> optional = flockKeeperRepository.findById(id);
-        if (optional.isPresent()) {
-            FlockKeeper fk = optional.get();
-            fk.setNameEmployee(request.getNameEmployee());
-            fk.setLastName(request.getLastName());
-            fk.setMiddleName(request.getMiddleName());
-            fk.setBirthDate(request.getBirthDate());
-            fk.setRfcEmployee(request.getRfcEmployee());
-            fk.setUrlPhotoId(request.getUrlPhotoId());
-            // No actualizamos el User aquí por seguridad
-            FlockKeeper updated = flockKeeperRepository.save(fk);
-            return ResponseEntity.ok(
-                    ResponseGlobal.success("FlockKeeper actualizado correctamente", updated)
-            );
+            String message = messageService.get("response.confirmation.creation.flock-keeper");
+            return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        } catch (Exception e) {
+            String message = messageService.get("response.error.creation.flockkeeper");
+            return ResponseEntity.badRequest().body(message);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ResponseGlobal.error("FlockKeeper no encontrado con id " + id, HttpStatus.NOT_FOUND));
     }
 
+    public ResponseEntity<String> updateFlockKeeper(Long id, FlockKeeperRequest request) {
+        try {
+            Optional<FlockKeeper> optional = flockKeeperRepository.findById(id);
+            if (optional.isPresent()) {
+                FlockKeeper fk = optional.get();
+                fk.setNameEmployee(request.getNameEmployee());
+                fk.setLastName(request.getLastName());
+                fk.setMiddleName(request.getMiddleName());
+                fk.setBirthDate(request.getBirthDate());
+                fk.setRfcEmployee(request.getRfcEmployee());
+                fk.setUrlPhotoId(request.getUrlPhotoId());
 
-
-
-    public ResponseEntity<ResponseGlobal<String>> deleteFlockKeeper(Long id) {
-        Optional<FlockKeeper> optional = flockKeeperRepository.findById(id);
-        if (optional.isPresent()) {
-            FlockKeeper fk = optional.get();
-            User user = fk.getUser();
-
-            flockKeeperRepository.delete(fk);
-            if (user != null) {
-                userRepository.delete(user);
+                flockKeeperRepository.save(fk);
+                String message = messageService.get("response.confirmation.update.flockkeeper");
+                return ResponseEntity.ok(message);
+            } else {
+                return ResponseEntity.badRequest().body(messageService.get("response.error.no.found.flockkeeper"));
             }
-            return ResponseEntity.ok(
-                    ResponseGlobal.success("FlockKeeper eliminado correctamente", "id eliminado: " + id)
-            );
+        } catch (Exception e) {
+            String message = messageService.get("response.error.update.flockkeeper");
+            return ResponseEntity.badRequest().body(message);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(ResponseGlobal.error("FlockKeeper no encontrado con id " + id, HttpStatus.NOT_FOUND));
     }
 
-    public ResponseEntity<ResponseGlobal<String>> createZone(Zone zonetoRegister) {
+    public ResponseEntity<String> deleteFlockKeeper(Long id) {
+        try {
+            Optional<FlockKeeper> optional = flockKeeperRepository.findById(id);
+            if (optional.isPresent()) {
+                FlockKeeper fk = optional.get();
+                User user = fk.getUser();
 
+                flockKeeperRepository.delete(fk);
+                if (user != null) {
+                    userRepository.delete(user);
+                }
+                String message = messageService.get("response.confirmation.delete.flockkeeper");
+                return ResponseEntity.ok(message);
+            } else {
+                return ResponseEntity.badRequest().body(messageService.get("response.error.no.found.flockkeeper"));
+            }
+        } catch (Exception e) {
+            String message = messageService.get("response.error.delete.flockkeeper");
+            return ResponseEntity.badRequest().body(message);
+        }
     }
 
 

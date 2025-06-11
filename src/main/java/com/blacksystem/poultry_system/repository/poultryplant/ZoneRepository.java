@@ -18,4 +18,5 @@ public interface ZoneRepository extends CrudRepository<Zone, Integer> {
 
     public ArrayList<Zone> findAll();
 
+    boolean getByIdZone(Long idZone);
 }
