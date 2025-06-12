@@ -5,6 +5,7 @@ import { ChartModule } from 'primeng/chart';
 import { PanelMenuModule } from 'primeng/panelmenu'; // 👈 IMPORTANTE
 import { KazetaDetailComponent } from './pages/kazeta-detail/kazeta-detail.component';
 import { RedirectComponent } from './pages/redirect/redirect.component';
+import { HttpClientModule } from '@angular/common/http'; 
 import { GranjeroLayoutComponent } from './pages/granjero/layout/component/granjero.layout.component';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { GranjeroLayoutComponent } from './pages/granjero/layout/component/granj
     PanelMenuModule,
     KazetaDetailComponent,
     RedirectComponent,
-    GranjeroLayoutComponent
+    GranjeroLayoutComponent,
+    HttpClientModule
   ],
   bootstrap: []
 })

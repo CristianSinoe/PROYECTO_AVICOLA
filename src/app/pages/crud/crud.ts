@@ -7,28 +7,19 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { RatingModule } from 'primeng/rating';
-import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { TagModule } from 'primeng/tag';
-import { InputIconModule } from 'primeng/inputicon';
-import { IconFieldModule } from 'primeng/iconfield';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Product, ProductService } from '../service/product.service';
+import { Worker, WorkerService } from '../service/worker.service';
+import { FlockkeeperService } from '../service/flockkeeper.service';
+import { ManagerService } from '../service/manager.service';
+import { PoultryHouseService } from '../service/poultryhouse.service';
+import { AdministratorService } from '../service/administrator.service';
 
 interface Column {
     field: string;
     header: string;
-    customExportHeader?: string;
-}
-
-interface ExportColumn {
-    title: string;
-    dataKey: string;
 }
 
 @Component({
@@ -42,182 +33,111 @@ interface ExportColumn {
         RippleModule,
         ToastModule,
         ToolbarModule,
-        RatingModule,
-        InputTextModule,
-        TextareaModule,
         SelectModule,
         RadioButtonModule,
-        InputNumberModule,
         DialogModule,
-        TagModule,
-        InputIconModule,
-        IconFieldModule,
         ConfirmDialogModule
     ],
     template: `
         <p-toolbar styleClass="mb-6">
             <ng-template #start>
                 <p-button label="NUEVO" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" />
-                <p-button severity="secondary" label="ELIMINAR" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
-            </ng-template>
-
-            <ng-template #end>
-                <p-button label="EXPORTAR" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+                <p-button severity="secondary" label="ELIMINAR" icon="pi pi-trash" outlined (onClick)="deleteSelectedWorkers()" [disabled]="!selectedWorkers || !selectedWorkers.length" />
             </ng-template>
         </p-toolbar>
 
         <p-table
             #dt
-            [value]="products()"
+            [value]="workers()"
             [rows]="10"
             [columns]="cols"
             [paginator]="true"
-            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            [tableStyle]="{ 'min-width': '75rem' }"
-            [(selection)]="selectedProducts"
+            [(selection)]="selectedWorkers"
             [rowHover]="true"
             dataKey="id"
-            currentPageReportTemplate="MOSTRANDO DEL {first} AL {last} DE {totalRecords} PRODUCTOS"
-            [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 20, 30]"
+            [tableStyle]="{ width: '100%' }"
         >
-            <ng-template #caption>
-                <div class="flex items-center justify-between">
-                    <h5 class="m-0">ADMINISTRACION DE TRABAJADORES</h5>
-                    <p-iconfield>
-                        <p-inputicon styleClass="pi pi-search" />
-                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="BUSCAR..." />
-                    </p-iconfield>
-                </div>
-            </ng-template>
             <ng-template #header>
                 <tr>
-                    <th style="width: 3rem">
+                    <th style="width: 2rem">
                         <p-tableHeaderCheckbox />
                     </th>
                     <th style="min-width: 16rem">CODIGO</th>
-                    <th pSortableColumn="name" style="min-width:16rem">
-                        NOMBRE
-                        <p-sortIcon field="name" />
-                    </th>
-                    <!-- <th>IMAGEN</th> -->
-                    <!-- <th pSortableColumn="price" style="min-width: 8rem">
-                        PRECIO
-                        <p-sortIcon field="price" />
-                    </th> -->
-                    <th pSortableColumn="category" style="min-width:10rem">
-                        PUESTO
-                        <p-sortIcon field="category" />
-                    </th>
-                    <!-- <th pSortableColumn="rating" style="min-width: 12rem">
-                        RESEÑAS
-                        <p-sortIcon field="rating" />
-                    </th> -->
-                    <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-                        ESTATUS
-                        <p-sortIcon field="inventoryStatus" />
-                    </th>
+                    <th pSortableColumn="name" style="min-width:16rem">NOMBRE<p-sortIcon field="name" /></th>
+                    <th pSortableColumn="category" style="min-width:10rem">PUESTO<p-sortIcon field="category" /></th>
+                    <th> </th>
                     <th style="min-width: 12rem"></th>
                 </tr>
             </ng-template>
-            <ng-template #body let-product>
+            <ng-template #body let-worker>
                 <tr>
                     <td style="width: 3rem">
-                        <p-tableCheckbox [value]="product" />
+                        <p-tableCheckbox [value]="worker" />
                     </td>
-                    <td style="min-width: 12rem">{{ product.code }}</td>
-                    <td style="min-width: 16rem">{{ product.name }}</td>
-                    <!-- <td>
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
-                    </td> -->
-                    <!-- <td>{{ product.price | currency: 'USD' }}</td> -->
-                    <td>{{ product.category }}</td>
-                    <!-- <td>
-                        <p-rating [(ngModel)]="product.rating" [readonly]="true" />
-                    </td> -->
+                    <td style="min-width: 12rem">{{ worker.id }}</td>
+                    <td style="min-width: 16rem">{{ worker.name }}</td>
+                    <td>{{ worker.category }}</td>
+                    <td>{{ worker.status }}</td>
                     <td>
-                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
-                    </td>
-                    <td>
-                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
-                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
+                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editWorker(worker)" />
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteWorker(worker)" />
                     </td>
                 </tr>
             </ng-template>
         </p-table>
 
-        <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="AÑADIR UN TRABAJADOR" [modal]="true">
+        <p-dialog [(visible)]="workerDialog" [style]="{ width: '450px' }" header="AÑADIR UN TRABAJADOR" [modal]="true">
             <ng-template #content>
                 <div class="flex flex-col gap-6">
-                    <!-- <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" /> -->
                     <div>
                         <label for="name" class="block font-bold mb-3">NOMBRE</label>
-                        <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
-                        <small class="text-red-500" *ngIf="submitted && !product.name">EL NOMBRE ES OBLIGATORIO.</small>
+                        <input type="text" pInputText id="name" [(ngModel)]="worker.name" required autofocus fluid />
+                        <small class="text-red-500" *ngIf="submitted && !worker.name">EL NOMBRE ES OBLIGATORIO.</small>
                     </div>
-                    <!-- <div>
-                        <label for="description" class="block font-bold mb-3">DESCRIPICION</label>
-                        <textarea id="description" pTextarea [(ngModel)]="product.description" required rows="3" cols="20" fluid></textarea>
-                    </div> -->
 
                     <div>
-                        <label for="inventoryStatus" class="block font-bold mb-3">ESTATUS DEL INVENTARIO</label>
-                        <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="SELECCIONE EL ESTATUS" fluid />
+                        <label for="status" class="block font-bold mb-3">ESTATUS</label>
+                        <p-select [(ngModel)]="worker.status" inputId="status" [options]="statuses" optionLabel="label" optionValue="value" placeholder="SELECCIONE EL ESTATUS" fluid />
                     </div>
 
                     <div>
                         <span class="block font-bold mb-4">PUESTO</span>
                         <div class="grid grid-cols-12 gap-4">
-                            <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category1" name="category" value="ADMINISTRADOR" [(ngModel)]="product.category" />
+                            <div class="flex items-center gap-2 col-span-4">
+                                <p-radiobutton id="category1" name="category" value="ADMINISTRADOR" [(ngModel)]="worker.category" />
                                 <label for="category1">ADMINISTRADOR</label>
                             </div>
-                            <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category2" name="category" value="GRANJERO" [(ngModel)]="product.category" />
+                            <div class="flex items-center gap-2 col-span-4">
+                                <p-radiobutton id="category2" name="category" value="GRANJERO" [(ngModel)]="worker.category" />
                                 <label for="category2">GRANJERO</label>
                             </div>
-                            <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category3" name="category" value="ENCARGADO" [(ngModel)]="product.category" />
+                            <div class="flex items-center gap-2 col-span-4">
+                                <p-radiobutton id="category3" name="category" value="ENCARGADO" [(ngModel)]="worker.category" />
                                 <label for="category3">ENCARGADO</label>
-                            </div>
-                            <div class="flex items-center gap-2 col-span-6">
-                                <p-radiobutton id="category4" name="category" value="MEDICO" [(ngModel)]="product.category" />
-                                <label for="category4">MEDICO</label>
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="grid grid-cols-12 gap-4">
-                        <div class="col-span-6">
-                            <label for="price" class="block font-bold mb-3">PRECIO</label>
-                            <p-inputnumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" fluid />
-                        </div>
-                        <div class="col-span-6">
-                            <label for="quantity" class="block font-bold mb-3">CANTIDAD</label>
-                            <p-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
-                        </div>
-                    </div> -->
                 </div> 
             </ng-template>
 
             <ng-template #footer>
                 <p-button label="CANCELAR" icon="pi pi-times" text (click)="hideDialog()" />
-                <p-button label="GUARDAR" icon="pi pi-check" (click)="saveProduct()" />
+                <p-button label="GUARDAR" icon="pi pi-check" (click)="saveWorker()" />
             </ng-template>
         </p-dialog>
 
         <p-confirmdialog [style]="{ width: '450px' }" />
     `,
-    providers: [MessageService, ProductService, ConfirmationService]
+    providers: [MessageService, WorkerService, ConfirmationService, FlockkeeperService, ManagerService, PoultryHouseService]
 })
 export class Crud implements OnInit {
-    productDialog: boolean = false;
+    workerDialog: boolean = false;
 
-    products = signal<Product[]>([]);
+    workers = signal<Worker[]>([]);
 
-    product!: Product;
+    worker!: Worker;
 
-    selectedProducts!: Product[] | null;
+    selectedWorkers!: Worker[] | null;
 
     submitted: boolean = false;
 
@@ -225,73 +145,62 @@ export class Crud implements OnInit {
 
     @ViewChild('dt') dt!: Table;
 
-    exportColumns!: ExportColumn[];
-
     cols!: Column[];
 
     constructor(
-        private productService: ProductService,
+        private flockKeeperService: FlockkeeperService,
+        private managerService: ManagerService,
+        private poultryHouseService: PoultryHouseService,
+        private workerService: WorkerService,
         private messageService: MessageService,
+        private administratorService: AdministratorService,
         private confirmationService: ConfirmationService
     ) {}
 
-    exportCSV() {
-        this.dt.exportCSV();
-    }
-
     ngOnInit() {
-        this.loadDemoData();
-    }
-
-    loadDemoData() {
-        this.productService.getProducts().then((data) => {
-            this.products.set(data);
-        });
-
+        this.loadWorkers();
         this.statuses = [
             { label: 'ACTIVO', value: 'ACTIVO' },
             { label: 'RENUNCIA', value: 'RENUNCIA' },
             { label: 'BAJA', value: 'BAJA' }
         ];
-
         this.cols = [
-            { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
-            { field: 'name', header: 'Name' },
-            { field: 'image', header: 'Image' },
-            { field: 'price', header: 'Price' },
-            { field: 'category', header: 'Category' }
+            { field: 'id', header: 'Código' },
+            { field: 'name', header: 'Nombre' },
+            { field: 'category', header: 'Puesto' },
+            { field: 'status', header: 'Estatus' }
         ];
-
-        this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
     }
 
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    loadWorkers() {
+        this.workerService.getWorkers().then((data) => {
+            this.workers.set(data);
+        });
     }
 
     openNew() {
-        this.product = {};
+        this.worker = {};
         this.submitted = false;
-        this.productDialog = true;
+        this.workerDialog = true;
     }
 
-    editProduct(product: Product) {
-        this.product = { ...product };
-        this.productDialog = true;
+    editWorker(worker: Worker) {
+        this.worker = { ...worker };
+        this.workerDialog = true;
     }
 
-    deleteSelectedProducts() {
+    deleteSelectedWorkers() {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete the selected products?',
-            header: 'Confirm',
+            message: '¿Estás seguro de que deseas eliminar los trabajadores seleccionados?',
+            header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.products.set(this.products().filter((val) => !this.selectedProducts?.includes(val)));
-                this.selectedProducts = null;
+                this.workers.set(this.workers().filter((val) => !this.selectedWorkers?.includes(val)));
+                this.selectedWorkers = null;
                 this.messageService.add({
                     severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Products Deleted',
+                    summary: 'Éxito',
+                    detail: 'Trabajadores eliminados',
                     life: 3000
                 });
             }
@@ -299,89 +208,111 @@ export class Crud implements OnInit {
     }
 
     hideDialog() {
-        this.productDialog = false;
+        this.workerDialog = false;
         this.submitted = false;
     }
 
-    deleteProduct(product: Product) {
+    deleteWorker(worker: Worker) {
         this.confirmationService.confirm({
-            message: 'ESTAS SEGURO DE QUE QUIERES ELIMINAR ' + product.name + '?',
-            header: 'CONFIRMAR',
+            message: '¿Estás seguro de que deseas eliminar ' + worker.name + '?',
+            header: 'Confirmar',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.products.set(this.products().filter((val) => val.id !== product.id));
-                this.product = {};
+                this.workers.set(this.workers().filter((val) => val.id !== worker.id));
+                this.worker = {};
                 this.messageService.add({
                     severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Deleted',
+                    summary: 'Éxito',
+                    detail: 'Trabajador eliminado',
                     life: 3000
                 });
             }
         });
     }
 
-    findIndexById(id: string): number {
-        let index = -1;
-        for (let i = 0; i < this.products().length; i++) {
-            if (this.products()[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
-
-    createId(): string {
-        let id = '';
-        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (var i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'ACTIVO':
-                return 'success';
-            case 'RENUNCIA':
-                return 'warn';
-            case 'BAJA':
-                return 'danger';
-            default:
-                return 'info';
-        }
-    }
-
-    saveProduct() {
+    saveWorker() {
         this.submitted = true;
-        let _products = this.products();
-        if (this.product.name?.trim()) {
-            if (this.product.id) {
-                _products[this.findIndexById(this.product.id)] = this.product;
-                this.products.set([..._products]);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Updated',
-                    life: 3000
-                });
-            } else {
-                this.product.id = this.createId();
-                this.product.image = 'product-placeholder.svg';
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Product Created',
-                    life: 3000
-                });
-                this.products.set([..._products, this.product]);
-            }
 
-            this.productDialog = false;
-            this.product = {};
+        // Validación de campos obligatorios
+        if (!this.worker.name?.trim() || !this.worker.category?.trim() || !this.worker.status?.trim()) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'CAMPOS INVÁLIDOS',
+                detail: 'Debes completar el nombre, seleccionar un puesto y un estatus.'
+            });
+            return;
         }
+
+        const baseName = this.worker.name.toLowerCase().replace(/\s/g, '');
+        const suffix = Math.floor(Math.random() * 1000);
+        const username = baseName + suffix;
+        const email = `${username}@gmail.com`;
+        const rfcEmployee = this.generateRFC();
+
+        const workerPayload = {
+            username: username,
+            email: email,
+            password: 'SecurePass123',
+            nameEmployee: this.worker.name,
+            lastName: 'Apellido', // Placeholder, puede ser modificado
+            middleName: 'Segundo', // Placeholder, puede ser modificado
+            birthDate: '1990-01-01', // Placeholder, puede ser modificado
+            urlPhotoId: 'https://via.placeholder.com/150', // Placeholder, puede ser modificado
+            rfcEmployee: rfcEmployee,
+            category: this.worker.category,
+            status: this.worker.status
+        };
+
+        let serviceToUse;
+        switch (this.worker.category) {
+            case 'GRANJERO':
+                serviceToUse = this.flockKeeperService;
+                break;
+            case 'ADMINISTRADOR':
+                serviceToUse = this.administratorService;
+                break;
+            case 'ENCARGADO':
+                serviceToUse = this.managerService;
+                break;
+            default:
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Categoría no válida',
+                    detail: 'Por favor selecciona una categoría válida.'
+                });
+                return;
+        }
+
+        serviceToUse.create(workerPayload).subscribe({
+            next: (res) => {
+                this.workers.set([...this.workers(), { ...workerPayload, id: res.id }]);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: '¡Trabajador creado!',
+                    detail: `ID generado: ${res.id}`,
+                    life: 3000
+                });
+                this.workerDialog = false;
+                this.worker = {};
+            },
+            error: (err) => {
+                console.error('Error al crear trabajador:', err);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'No se pudo crear el trabajador.',
+                    life: 3000
+                });
+            }
+        });
+    }
+
+    generateRFC(): string {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let rfc = '';
+        for (let i = 0; i < 13; i++) {
+            rfc += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return rfc;
     }
 }
