@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PoultryHouseRepository extends JpaRepository<PoultryHouse, Long> {
-    @Override
-    PoultryHouse getReferenceById(Long aLong);
-    void deleteReferenceById(Long aLong);
+
+    void deleteReferenceByIdPoultry(Long aLong);
 }

@@ -78,4 +78,28 @@ public class PoultryHouseService {
             return ResponseEntity.badRequest().body(message);
         }
     }
+
+    public ResponseEntity<String> getAllPoultryHouses() {
+        try {
+            var poultryHouses = poultryHouseRepository.findAll();
+            if (poultryHouses.isEmpty()) {
+                return ResponseEntity.ok(messageService.get("response.no.poultryhouses.found"));
+            }
+            return ResponseEntity.ok(poultryHouses.toString());
+        } catch (Exception e) {
+            String message = messageService.get("response.error.fetching.poultryhouses");
+            return ResponseEntity.badRequest().body(message);
+        }
+    }
+
+    public ResponseEntity<String> getPoultryHouseById(Long idPoultryHouse) {
+        try {
+            PoultryHouse poultryHouse = poultryHouseRepository.findById(idPoultryHouse)
+                    .orElseThrow(() -> new RuntimeException(messageService.get("response.no.poultryhouses.found")));
+            return ResponseEntity.ok(poultryHouse.toString());
+        } catch (Exception e) {
+            String message = messageService.get("response.error.fetching.poultryhouse");
+            return ResponseEntity.badRequest().body(message);
+        }
+    }
 }
