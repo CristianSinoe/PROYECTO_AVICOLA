@@ -86,45 +86,101 @@ interface Column {
             </ng-template>
         </p-table>
 
-        <p-dialog [(visible)]="workerDialog" [style]="{ width: '450px' }" header="AÑADIR UN TRABAJADOR" [modal]="true">
-            <ng-template #content>
-                <div class="flex flex-col gap-6">
-                    <div>
-                        <label for="name" class="block font-bold mb-3">NOMBRE</label>
-                        <input type="text" pInputText id="name" [(ngModel)]="worker.name" required autofocus fluid />
-                        <small class="text-red-500" *ngIf="submitted && !worker.name">EL NOMBRE ES OBLIGATORIO.</small>
-                    </div>
+       <p-dialog [(visible)]="workerDialog" [style]="{ width: '500px' }" header="AÑADIR UN TRABAJADOR" [modal]="true">
+  <ng-template #content>
+    <div class="flex flex-col gap-5">
+      
+      <!-- Nombre -->
+      <div>
+        <label class="block font-bold mb-2">NOMBRE</label>
+        <input type="text" pInputText [(ngModel)]="worker.name"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500 transition" />
+        <small class="text-red-500" *ngIf="submitted && !worker.name">EL NOMBRE ES OBLIGATORIO.</small>
+      </div>
 
-                    <div>
-                        <label for="status" class="block font-bold mb-3">ESTATUS</label>
-                        <p-select [(ngModel)]="worker.status" inputId="status" [options]="statuses" optionLabel="label" optionValue="value" placeholder="SELECCIONE EL ESTATUS" fluid />
-                    </div>
+      <!-- Apellido -->
+      <div>
+        <label class="block font-bold mb-2">APELLIDO</label>
+        <input type="text" pInputText [(ngModel)]="worker.lastName"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+      </div>
 
-                    <div>
-                        <span class="block font-bold mb-4">PUESTO</span>
-                        <div class="grid grid-cols-12 gap-4">
-                            <div class="flex items-center gap-2 col-span-4">
-                                <p-radiobutton id="category1" name="category" value="ADMINISTRADOR" [(ngModel)]="worker.category" />
-                                <label for="category1">ADMINISTRADOR</label>
-                            </div>
-                            <div class="flex items-center gap-2 col-span-4">
-                                <p-radiobutton id="category2" name="category" value="GRANJERO" [(ngModel)]="worker.category" />
-                                <label for="category2">GRANJERO</label>
-                            </div>
-                            <div class="flex items-center gap-2 col-span-4">
-                                <p-radiobutton id="category3" name="category" value="ENCARGADO" [(ngModel)]="worker.category" />
-                                <label for="category3">ENCARGADO</label>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </ng-template>
+      <!-- Segundo Apellido -->
+      <div>
+        <label class="block font-bold mb-2">SEGUNDO APELLIDO</label>
+        <input type="text" pInputText [(ngModel)]="worker.middleName"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+      </div>
 
-            <ng-template #footer>
-                <p-button label="CANCELAR" icon="pi pi-times" text (click)="hideDialog()" />
-                <p-button label="GUARDAR" icon="pi pi-check" (click)="saveWorker()" />
-            </ng-template>
-        </p-dialog>
+      <!-- RFC -->
+      <div>
+        <label class="block font-bold mb-2">RFC</label>
+        <input type="text" pInputText [(ngModel)]="worker.rfcEmployee"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+        <small class="text-red-500" *ngIf="submitted && !worker.rfcEmployee">El RFC es obligatorio.</small>
+      </div>
+
+      <!-- Usuario -->
+      <div>
+        <label class="block font-bold mb-2">USUARIO</label>
+        <input type="text" pInputText [(ngModel)]="worker.username"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <!-- Correo -->
+      <div>
+        <label class="block font-bold mb-2">CORREO</label>
+        <input type="email" pInputText [(ngModel)]="worker.email"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <!-- Fecha de nacimiento -->
+      <div>
+        <label class="block font-bold mb-2">FECHA DE NACIMIENTO</label>
+        <input type="date" pInputText [(ngModel)]="worker.birthDate"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <!-- Foto -->
+      <div>
+        <label class="block font-bold mb-2">URL DE FOTO</label>
+        <input type="text" pInputText [(ngModel)]="worker.urlPhotoId"
+          class="p-inputtext w-full border border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <div>
+                <label class="block font-bold mb-2">ESTATUS</label>
+                <p-select [(ngModel)]="worker.status" [options]="statuses" optionLabel="label" optionValue="value" placeholder="SELECCIONE EL ESTATUS" />
+            </div>
+
+      <!-- Puesto -->
+      <div>
+        <span class="block font-bold mb-2">PUESTO</span>
+        <div class="flex gap-4">
+          <div class="flex items-center gap-2">
+            <p-radiobutton inputId="cat1" name="category" value="ADMINISTRADOR" [(ngModel)]="worker.category" />
+            <label for="cat1">ADMINISTRADOR</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <p-radiobutton inputId="cat2" name="category" value="GRANJERO" [(ngModel)]="worker.category" />
+            <label for="cat2">GRANJERO</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <p-radiobutton inputId="cat3" name="category" value="ENCARGADO" [(ngModel)]="worker.category" />
+            <label for="cat3">ENCARGADO</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #footer>
+    <p-button label="CANCELAR" icon="pi pi-times" text (click)="hideDialog()" />
+    <p-button label="GUARDAR" icon="pi pi-check" (click)="saveWorker()" />
+  </ng-template>
+</p-dialog>
+
+
 
         <p-confirmdialog [style]="{ width: '450px' }" />
     `,
@@ -230,89 +286,85 @@ export class Crud implements OnInit {
         });
     }
 
-    saveWorker() {
-        this.submitted = true;
+saveWorker() {
+    this.submitted = true;
 
-        // Validación de campos obligatorios
-        if (!this.worker.name?.trim() || !this.worker.category?.trim() || !this.worker.status?.trim()) {
+    // Validación de campos obligatorios
+    if (!this.worker.name?.trim() || !this.worker.category?.trim() || !this.worker.status?.trim()) {
+        this.messageService.add({
+            severity: 'error',
+            summary: 'CAMPOS INVÁLIDOS',
+            detail: 'Debes completar el nombre, seleccionar un puesto y un estatus.'
+        });
+        return;
+    }
+
+    // Generar valores predeterminados si no se ingresan manualmente
+    const baseName = this.worker.name.toLowerCase().replace(/\s/g, '');
+    const suffix = Math.floor(Math.random() * 1000);
+    const username = this.worker.username || baseName + suffix;
+    const email = this.worker.email || `${username}@gmail.com`;
+    const rfcEmployee: string = this.worker.rfcEmployee || 'DEFAULT-RFC';
+    const birthDate = this.worker.birthDate || '1990-01-01';
+    const lastName = this.worker.lastName || 'Apellido';
+    const middleName = this.worker.middleName || 'Segundo';
+    const urlPhotoId = this.worker.urlPhotoId || 'https://via.placeholder.com/150';
+
+    const workerPayload = {
+        username: username,
+        email: email,
+        password: 'SecurePass123',
+        nameEmployee: this.worker.name,
+        lastName: lastName,
+        middleName: middleName,
+        birthDate: birthDate,
+        urlPhotoId: urlPhotoId,
+        rfcEmployee: rfcEmployee,
+        category: this.worker.category,
+        status: this.worker.status
+    };
+
+    let serviceToUse;
+    switch (this.worker.category) {
+        case 'GRANJERO':
+            serviceToUse = this.flockKeeperService;
+            break;
+        case 'ADMINISTRADOR':
+            serviceToUse = this.administratorService;
+            break;
+        case 'ENCARGADO':
+            serviceToUse = this.managerService;
+            break;
+        default:
             this.messageService.add({
                 severity: 'error',
-                summary: 'CAMPOS INVÁLIDOS',
-                detail: 'Debes completar el nombre, seleccionar un puesto y un estatus.'
+                summary: 'Categoría no válida',
+                detail: 'Por favor selecciona una categoría válida.'
             });
             return;
-        }
-
-        const baseName = this.worker.name.toLowerCase().replace(/\s/g, '');
-        const suffix = Math.floor(Math.random() * 1000);
-        const username = baseName + suffix;
-        const email = `${username}@gmail.com`;
-        const rfcEmployee = this.generateRFC();
-
-        const workerPayload = {
-            username: username,
-            email: email,
-            password: 'SecurePass123',
-            nameEmployee: this.worker.name,
-            lastName: 'Apellido', // Placeholder, puede ser modificado
-            middleName: 'Segundo', // Placeholder, puede ser modificado
-            birthDate: '1990-01-01', // Placeholder, puede ser modificado
-            urlPhotoId: 'https://via.placeholder.com/150', // Placeholder, puede ser modificado
-            rfcEmployee: rfcEmployee,
-            category: this.worker.category,
-            status: this.worker.status
-        };
-
-        let serviceToUse;
-        switch (this.worker.category) {
-            case 'GRANJERO':
-                serviceToUse = this.flockKeeperService;
-                break;
-            case 'ADMINISTRADOR':
-                serviceToUse = this.administratorService;
-                break;
-            case 'ENCARGADO':
-                serviceToUse = this.managerService;
-                break;
-            default:
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Categoría no válida',
-                    detail: 'Por favor selecciona una categoría válida.'
-                });
-                return;
-        }
-
-        serviceToUse.create(workerPayload).subscribe({
-            next: (res) => {
-                this.workers.set([...this.workers(), { ...workerPayload, id: res.id }]);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: '¡Trabajador creado!',
-                    detail: `ID generado: ${res.id}`,
-                    life: 3000
-                });
-                this.workerDialog = false;
-                this.worker = {};
-            },
-            error: (err) => {
-                console.error('Error al crear trabajador:', err);
-                this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: 'No se pudo crear el trabajador.',
-                    life: 3000
-                });
-            }
-        });
     }
 
-    generateRFC(): string {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let rfc = '';
-        for (let i = 0; i < 13; i++) {
-            rfc += chars.charAt(Math.floor(Math.random() * chars.length));
+    serviceToUse.create(workerPayload).subscribe({
+        next: (res) => {
+            this.workers.set([...this.workers(), { ...workerPayload, id: res.id }]);
+            this.messageService.add({
+                severity: 'success',
+                summary: '¡Trabajador creado!',
+                detail: `ID generado: ${res.id}`,
+                life: 3000
+            });
+            this.workerDialog = false;
+            this.worker = {};
+        },
+        error: (err) => {
+            console.error('Error al crear trabajador:', err);
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'No se pudo crear el trabajador.',
+                life: 3000
+            });
         }
-        return rfc;
-    }
+    });
+}
 }

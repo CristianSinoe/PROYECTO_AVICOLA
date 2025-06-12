@@ -5,6 +5,13 @@ import { Observable, lastValueFrom } from 'rxjs';
 export interface Worker {
   id?: number;
   name?: string;
+  lastName?: string;
+  middleName?: string;
+  birthDate?: string;
+  email?: string;
+  username?: string;
+  urlPhotoId?: string;
+  rfcEmployee?: string;
   category?: 'GRANJERO' | 'ENCARGADO' | 'ADMINISTRADOR';
   status?: string;
   code?: string;
@@ -14,7 +21,7 @@ export interface Worker {
   providedIn: 'root'
 })
 export class WorkerService {
-  private apiUrl = 'http://localhost:8080/api/workers'; // 🔄 Cambia si tu backend usa otra ruta
+  private apiUrl = 'http://localhost:8080/api/workers';
 
   constructor(private http: HttpClient) {}
 
