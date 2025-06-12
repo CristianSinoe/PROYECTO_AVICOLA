@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BaseEmployeeService } from './base-employee.service';
 
 export interface AdministratorRequest {
   username: string;
@@ -19,12 +20,8 @@ export interface AdministratorRequest {
 @Injectable({
   providedIn: 'root'
 })
-export class AdministratorService {
-  private apiUrl = 'http://localhost:8080/api/administrators';
-
-  constructor(private http: HttpClient) {}
-
-  create(request: AdministratorRequest): Observable<any> {
-    return this.http.post(this.apiUrl, request);
+export class AdministratorService extends BaseEmployeeService<AdministratorRequest> {
+  constructor(http: HttpClient) {
+    super(http, 'http://localhost:8080/api/administrators');
   }
 }

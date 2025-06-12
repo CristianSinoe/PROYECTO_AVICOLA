@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, lastValueFrom } from 'rxjs';
+import { FlockkeeperService } from './flockkeeper.service';
+import { ManagerService } from './manager.service';
+import { AdministratorService } from './administrator.service';
 
 export interface Worker {
   id?: number;
@@ -21,19 +24,29 @@ export interface Worker {
   providedIn: 'root'
 })
 export class WorkerService {
-  private apiUrl = 'http://localhost:8080/api/workers';
+  constructor(
+    private flockkeeper: FlockkeeperService,
+    private manager: ManagerService,
+    private admin: AdministratorService
+  ) {}
 
-  constructor(private http: HttpClient) {}
+  async getWorkers(): Promise<Worker[]> {
+    const granjeros = await lastValueFrom(this.flockkeeper.getAll());
+    const encargados = await lastValueFrom(this.manager.getAll());
+    const admins = await lastValueFrom(this.admin.getAll());
 
-  getWorkers(): Promise<Worker[]> {
-    return lastValueFrom(this.http.get<Worker[]>(this.apiUrl));
-  }
+    const addCategory = (list: any[], category: Worker['category']) =>
+      list.map((w) => ({
+        ...w,
+        id: w.idEmployee,
+        name: w.nameEmployee,
+        category
+      }));
 
-  getById(id: number): Observable<Worker> {
-    return this.http.get<Worker>(`${this.apiUrl}/${id}`);
-  }
-
-  delete(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return [
+      ...addCategory(granjeros, 'GRANJERO'),
+      ...addCategory(encargados, 'ENCARGADO'),
+      ...addCategory(admins, 'ADMINISTRADOR')
+    ];
   }
 }

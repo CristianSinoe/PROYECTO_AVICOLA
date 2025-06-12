@@ -11,11 +11,13 @@ import { SelectModule } from 'primeng/select';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Worker, WorkerService } from '../service/worker.service';
+import { Worker } from '../service/worker.service';
 import { FlockkeeperService } from '../service/flockkeeper.service';
 import { ManagerService } from '../service/manager.service';
 import { PoultryHouseService } from '../service/poultryhouse.service';
 import { AdministratorService } from '../service/administrator.service';
+import { WorkerService } from '../service/worker.service';
+
 
 interface Column {
     field: string;
@@ -74,8 +76,8 @@ interface Column {
                     <td style="width: 3rem">
                         <p-tableCheckbox [value]="worker" />
                     </td>
-                    <td style="min-width: 12rem">{{ worker.id }}</td>
-                    <td style="min-width: 16rem">{{ worker.name }}</td>
+                    <td style="min-width: 12rem">{{ worker.idEmployee }}</td>
+                    <td style="min-width: 16rem">{{ worker.nameEmployee }}</td>
                     <td>{{ worker.category }}</td>
                     <td>{{ worker.status }}</td>
                     <td>
@@ -207,7 +209,7 @@ export class Crud implements OnInit {
         private flockKeeperService: FlockkeeperService,
         private managerService: ManagerService,
         private poultryHouseService: PoultryHouseService,
-        private workerService: WorkerService,
+        private WorkerService: WorkerService,
         private messageService: MessageService,
         private administratorService: AdministratorService,
         private confirmationService: ConfirmationService
@@ -229,7 +231,7 @@ export class Crud implements OnInit {
     }
 
     loadWorkers() {
-        this.workerService.getWorkers().then((data) => {
+        this.WorkerService.getWorkers().then((data) => {
             this.workers.set(data);
         });
     }
@@ -269,27 +271,53 @@ export class Crud implements OnInit {
     }
 
     deleteWorker(worker: Worker) {
-        this.confirmationService.confirm({
-            message: '¿Estás seguro de que deseas eliminar ' + worker.name + '?',
-            header: 'Confirmar',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
-                this.workers.set(this.workers().filter((val) => val.id !== worker.id));
-                this.worker = {};
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Éxito',
-                    detail: 'Trabajador eliminado',
-                    life: 3000
-                });
+    this.confirmationService.confirm({
+        message: `¿Eliminar al trabajador ${worker.name}?`,
+        header: 'Confirmación',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            let serviceToUse;
+            switch (worker.category) {
+                case 'GRANJERO':
+                    serviceToUse = this.flockKeeperService;
+                    break;
+                case 'ADMINISTRADOR':
+                    serviceToUse = this.administratorService;
+                    break;
+                case 'ENCARGADO':
+                    serviceToUse = this.managerService;
+                    break;
+                default:
+                    return;
             }
-        });
-    }
+
+            serviceToUse.delete(worker.id!).subscribe({
+                next: () => {
+                    this.workers.set(this.workers().filter((w) => w.id !== worker.id));
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Eliminado',
+                        detail: 'Trabajador eliminado correctamente',
+                        life: 3000
+                    });
+                },
+                error: () => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'No se pudo eliminar el trabajador.',
+                        life: 3000
+                    });
+                }
+            });
+        }
+    });
+}
+
 
 saveWorker() {
     this.submitted = true;
 
-    // Validación de campos obligatorios
     if (!this.worker.name?.trim() || !this.worker.category?.trim() || !this.worker.status?.trim()) {
         this.messageService.add({
             severity: 'error',
@@ -299,27 +327,26 @@ saveWorker() {
         return;
     }
 
-    // Generar valores predeterminados si no se ingresan manualmente
     const baseName = this.worker.name.toLowerCase().replace(/\s/g, '');
     const suffix = Math.floor(Math.random() * 1000);
     const username = this.worker.username || baseName + suffix;
     const email = this.worker.email || `${username}@gmail.com`;
-    const rfcEmployee: string = this.worker.rfcEmployee || 'DEFAULT-RFC';
+    const rfcEmployee = this.worker.rfcEmployee || 'DEFAULT-RFC';
     const birthDate = this.worker.birthDate || '1990-01-01';
     const lastName = this.worker.lastName || 'Apellido';
     const middleName = this.worker.middleName || 'Segundo';
     const urlPhotoId = this.worker.urlPhotoId || 'https://via.placeholder.com/150';
 
     const workerPayload = {
-        username: username,
-        email: email,
+        username,
+        email,
         password: 'SecurePass123',
         nameEmployee: this.worker.name,
-        lastName: lastName,
-        middleName: middleName,
-        birthDate: birthDate,
-        urlPhotoId: urlPhotoId,
-        rfcEmployee: rfcEmployee,
+        lastName,
+        middleName,
+        birthDate,
+        urlPhotoId,
+        rfcEmployee,
         category: this.worker.category,
         status: this.worker.status
     };
@@ -344,27 +371,52 @@ saveWorker() {
             return;
     }
 
-    serviceToUse.create(workerPayload).subscribe({
-        next: (res) => {
-            this.workers.set([...this.workers(), { ...workerPayload, id: res.id }]);
-            this.messageService.add({
-                severity: 'success',
-                summary: '¡Trabajador creado!',
-                detail: `ID generado: ${res.id}`,
-                life: 3000
-            });
-            this.workerDialog = false;
-            this.worker = {};
-        },
-        error: (err) => {
-            console.error('Error al crear trabajador:', err);
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'No se pudo crear el trabajador.',
-                life: 3000
-            });
-        }
-    });
+    if (this.worker.id) {
+        // Modo edición
+        serviceToUse.update(this.worker.id, workerPayload).subscribe({
+            next: (res) => {
+                const updated = this.workers().map(w => w.id === this.worker.id ? { ...w, ...workerPayload } : w);
+                this.workers.set(updated);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: '¡Trabajador actualizado!',
+                    detail: `ID: ${this.worker.id}`,
+                    life: 3000
+                });
+                this.workerDialog = false;
+                this.worker = {};
+            },
+            error: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'No se pudo actualizar el trabajador.'
+                });
+            }
+        });
+    } else {
+        // Modo nuevo
+        serviceToUse.create(workerPayload).subscribe({
+            next: (res) => {
+                this.workers.set([...this.workers(), { ...workerPayload, id: res.id }]);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: '¡Trabajador creado!',
+                    detail: `ID generado: ${res.id}`,
+                    life: 3000
+                });
+                this.workerDialog = false;
+                this.worker = {};
+            },
+            error: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'No se pudo crear el trabajador.',
+                    life: 3000
+                });
+            }
+        });
+    }
 }
 }

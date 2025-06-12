@@ -3,6 +3,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseEmployeeService } from './base-employee.service';
+import { AdministratorRequest } from './administrator.service';
 
 export interface FlockKeeperRequest {
     username: string;
@@ -19,12 +21,8 @@ export interface FlockKeeperRequest {
 @Injectable({
     providedIn: 'root'
 })
-export class FlockkeeperService {
-    private apiUrl = 'http://localhost:8080/api/flockkeepers'; // ajusta si es necesario
-
-    constructor(private http: HttpClient) {}
-
-    create(flockKeeper: FlockKeeperRequest): Observable<any> {
-        return this.http.post(this.apiUrl, flockKeeper);
-    }
+export class FlockkeeperService extends BaseEmployeeService<AdministratorRequest> {
+  constructor(http: HttpClient) {
+    super(http, 'http://localhost:8080/api/flockkeepers');
+  }
 }
