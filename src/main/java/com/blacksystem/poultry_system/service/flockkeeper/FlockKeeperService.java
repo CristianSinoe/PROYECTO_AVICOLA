@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 public class FlockKeeperService {
 
     private final FlockKeeperRepository repo;
-    private final UserRepository          userRepo;
-    private final RoleRepository          roleRepo;
-    private final PasswordEncoder         encoder;
+    private final UserRepository userRepo;
+    private final RoleRepository roleRepo;
+    private final PasswordEncoder encoder;
 
     public FlockKeeperService(
             FlockKeeperRepository repo,

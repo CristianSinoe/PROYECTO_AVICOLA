@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @Service
 public class ManagerService {
 
-    private final ManagerRepository     repo;
-    private final UserRepository        userRepo;
-    private final RoleRepository        roleRepo;
-    private final PasswordEncoder       encoder;
+    private final ManagerRepository repo;
+    private final UserRepository userRepo;
+    private final RoleRepository roleRepo;
+    private final PasswordEncoder encoder;
 
     public ManagerService(
             ManagerRepository repo,

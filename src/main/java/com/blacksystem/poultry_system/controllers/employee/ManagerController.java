@@ -1,4 +1,4 @@
-// src/main/java/com/blacksystem/poultry_system/controller/manager/ManagerController.java
+
 package com.blacksystem.poultry_system.controllers.employee;
 
 import com.blacksystem.poultry_system.payload.employee.request.ManagerRequest;
