@@ -1,4 +1,4 @@
-// src/main/java/com/blacksystem/poultry_system/service/manager/ManagerService.java
+
 package com.blacksystem.poultry_system.service.manager;
 
 import com.blacksystem.poultry_system.models.ERole;
@@ -98,7 +98,8 @@ public class ManagerService {
                 m.getUser().getUsername(),
                 m.getUser().getEmail(),
                 m.getNameEmployee(),
-                m.getLastName()
+                m.getLastName(),
+                m.getStatus()
         );
     }
 }

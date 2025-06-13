@@ -1,10 +1,4 @@
-/*
- * -----------------------------------
- *  Project: poultry-system
- *  Author: chappyd-0
- *  Date: 6/11/25
- * -----------------------------------
- */
+
 package com.blacksystem.poultry_system.payload.employee.request;
 
 import com.blacksystem.poultry_system.models.flockmanagement.Flock;

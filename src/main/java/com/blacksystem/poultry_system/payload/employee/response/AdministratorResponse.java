@@ -1,4 +1,4 @@
-/// AdministratorResponse.java
+
 package com.blacksystem.poultry_system.payload.employee.response;
 
 import lombok.*;
@@ -16,4 +16,13 @@ public class AdministratorResponse {
     private LocalDate birthDate;
     private String rfcEmployee;
     private String urlPhotoId;
+    private String status;
+
+public String getStatus() {
+    return status;
+}
+
+public void setStatus(String status) {
+    this.status = status;
+}
 }

@@ -1,4 +1,4 @@
-// src/main/java/com/blacksystem/poultry_system/service/flockkeeper/FlockKeeperService.java
+
 package com.blacksystem.poultry_system.service.flockkeeper;
 
 import com.blacksystem.poultry_system.models.ERole;
@@ -99,7 +99,8 @@ public class FlockKeeperService {
                 fk.getUser().getEmail(),
                 fk.getNameEmployee(),
                 fk.getLastName(),
-                fk.getBirthDate()
+                fk.getBirthDate(),
+                fk.getStatus()
         );
     }
 }

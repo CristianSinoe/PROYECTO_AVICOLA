@@ -45,7 +45,7 @@ public class Zone {
     orphanRemoval = true,
     fetch = FetchType.LAZY)
     private List<Flock> flocks = new ArrayList<>();
-    //cazetas
+
     @OneToMany(mappedBy = "zone",
     cascade = CascadeType.ALL,
     orphanRemoval = true,

@@ -1,10 +1,4 @@
-/*
- * -----------------------------------
- *  Project: poultry-system
- *  Author: chappyd-0
- *  Date: 6/7/25
- * -----------------------------------
- */
+
 package com.blacksystem.poultry_system.payload.response;
 
 

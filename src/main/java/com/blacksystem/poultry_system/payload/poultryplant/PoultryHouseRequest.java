@@ -1,10 +1,4 @@
-/*
- * -----------------------------------
- *  Project: poultry-system
- *  Author: chappyd-0
- *  Date: 6/10/25
- * -----------------------------------
- */
+
 package com.blacksystem.poultry_system.payload.poultryplant;
 
 
@@ -17,8 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PoultryHouseRequest {
-    @NotNull
-    private Long idPoultry;
     @NotNull
     private Zone zone;
     @NotNull

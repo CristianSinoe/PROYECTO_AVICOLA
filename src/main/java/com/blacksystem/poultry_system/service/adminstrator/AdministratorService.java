@@ -1,4 +1,4 @@
-// src/main/java/com/blacksystem/poultry_system/service/administrator/AdministratorService.java
+
 package com.blacksystem.poultry_system.service.adminstrator;
 
 import com.blacksystem.poultry_system.models.ERole;
@@ -106,7 +106,8 @@ public class AdministratorService {
                 a.getMiddleName(),
                 a.getBirthDate(),
                 a.getRfcEmployee(),
-                a.getUrlPhotoId()
+                a.getUrlPhotoId(),
+                a.getStatus()
         );
     }
 }

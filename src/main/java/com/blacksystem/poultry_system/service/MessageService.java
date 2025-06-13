@@ -1,10 +1,4 @@
-/*
- * -----------------------------------
- *  Project: poultry-system
- *  Author: chappyd-0
- *  Date: 6/10/25
- * -----------------------------------
- */
+
 package com.blacksystem.poultry_system.service;
 
 import org.springframework.context.MessageSource;

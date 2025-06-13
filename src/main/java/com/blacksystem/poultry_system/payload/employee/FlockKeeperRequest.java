@@ -1,10 +1,4 @@
-/*
- * -----------------------------------
- *  Project: poultry-system
- *  Author: chappyd-0
- *  Date: 5/29/25
- * -----------------------------------
- */
+
 package com.blacksystem.poultry_system.payload.employee;
 
 import jakarta.validation.constraints.Email;

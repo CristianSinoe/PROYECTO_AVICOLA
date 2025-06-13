@@ -1,10 +1,4 @@
-/*
- * -----------------------------------
- *  Project: poultry-system
- *  Author: chappyd-0
- *  Date: 5/28/25
- * -----------------------------------
- */
+
 package com.blacksystem.poultry_system.repository.employee;
 
 import com.blacksystem.poultry_system.models.employees.FlockKeeper;
